@@ -25,12 +25,21 @@ The **TerraTwin Backend** is a high-performance scientific Node.js / Express eng
 ```text
 backend/
 ├── src/
+│   ├── db/
+│   │   ├── connection.js         # Mongoose connection manager
+│   │   └── seed.js               # Database seeder (100 levels, targets, analogs)
+│   ├── models/
+│   │   ├── Analog.js             # Mongoose schema with GeoJSON 2dsphere index
+│   │   ├── PlanetaryTarget.js    # Moon & Mars reference targets schema
+│   │   ├── GameLevel.js          # 100-level B&W reconnaissance game schema
+│   │   └── NasaDataset.js        # 100% NASA dataset catalog schema
 │   ├── nasaDataCatalog.js        # 100% NASA datasets, Moon/Mars targets, Earth analogs
 │   ├── similarityEngine.js       # PRD Section 8 hybrid similarity scoring engine
 │   ├── imageSimilarityEngine.js  # Feature 2 visual & morphological photo matcher
 │   └── gameLevelsData.js         # 100 educational levels categorized by 4 difficulty tiers
 ├── server.js                     # Express REST API routes & CORS configuration
-├── package.json                  # Node.js dependencies
+├── .env.example                  # Environment configuration template
+├── package.json                  # Node.js dependencies (express, mongoose, dotenv)
 └── backend.md                    # Backend documentation
 ```
 
@@ -40,13 +49,15 @@ backend/
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/health` | Service status, active NASA datasets count, and available game levels |
-| `GET` | `/api/nasa-datasets` | Full catalog of verified 100% NASA datasets with DOIs and parameters |
+| `GET` | `/api/health` | Service status, MongoDB Atlas status, total indexed analogs & game levels |
+| `GET` | `/api/nasa-datasets` | Full catalog of verified 100% NASA datasets from MongoDB with DOIs |
 | `GET` | `/api/targets` | Candidate lunar base targets (Artemis, Shackleton) and Martian exploration sites |
 | `GET` | `/api/mission-profiles` | 4 PRD mission profiles (Permanent Base, Robotic Landing, Surface Exploration, Habitability) |
 | `POST` | `/api/analog/search` | Computes scientific similarity from user input criteria sliders & returns ranked Earth analogs with side-by-side imagery |
+| `GET` | `/api/analog/nearby` | **MongoDB Geospatial (`$near`)**: Finds Earth analogs near given `lat`/`lon` within `maxDistanceKm` |
+| `POST` | `/api/analog/within-polygon` | **MongoDB Geospatial (`$geoWithin`)**: Finds Earth analogs inside a custom drawn polygon |
 | `POST` | `/api/analog/image-match` | Finds morphologically similar Earth, Moon, and Mars imagery from an input photo |
-| `GET` | `/api/game/levels` | Retrieves 100 game levels with optional difficulty filtering (`novice`, `explorer`, `specialist`, `commander`) |
+| `GET` | `/api/game/levels` | Retrieves 100 game levels from MongoDB Atlas with difficulty filtering (`novice`, `explorer`, `specialist`, `commander`) |
 | `POST` | `/api/game/guess` | Evaluates player guess (`earth_analog`, `moon`, `mars`) and reveals full-color photo + NASA scientific rationale |
 
 ---
