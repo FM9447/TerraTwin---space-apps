@@ -1,0 +1,21 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: terratwin-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: terratwin
+      MONGO_INITDB_ROOT_PASSWORD: terratwin_dev_2026
+      MONGO_INITDB_DATABASE: terratwin
+    volumes:
+      - terratwin-mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  terratwin-mongo-data:

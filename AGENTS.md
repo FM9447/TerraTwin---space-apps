@@ -34,7 +34,7 @@ Any AI agent interacting with this repository **MUST** adhere strictly to the fo
 ### 3. Repository Stack & Boundaries
 - **Backend (`/backend`)**: Node.js & Express.js. Architecture: Controllers, Routes, Services, Middleware.
 - **Database**: **MongoDB Atlas** (Mongoose ODM). All coordinates stored as GeoJSON `Point` `[longitude, latitude]` with active `2dsphere` spatial indexing.
-- **Frontend (`/frontend`)**: React.js (React 18), Vite 5, Tailwind CSS, Lucide React, Three.js (WebGL).
+- **Frontend (`/frontend`)**: React.js (React 18), Vite 5, Twin Worlds CSS design system, Canvas 2D starfield/cursor FX.
 - **Models (`/model`)**: **LEFT BLANK / RESERVED**. Do NOT generate random Python ML models or dummy weights in `/model` unless explicitly requested by the user.
 
 ### 4. Anti-Redundancy & Zero-Waste Execution Directive
@@ -49,7 +49,7 @@ Any AI agent interacting with this repository **MUST** adhere strictly to the fo
 | Directory | Role | Agent Guide | Primary Tech |
 | :--- | :--- | :--- | :--- |
 | **`/backend`** | REST APIs, MongoDB GeoJSON queries, calculation engines | [backend/AGENTS.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/backend/AGENTS.md) | Node.js, Express, Mongoose |
-| **`/frontend`** | UI dashboard, B&W 100-level game, 3D WebGL globe, photo matcher | [frontend/AGENTS.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/frontend/AGENTS.md) | React 18, Vite, Three.js, Tailwind |
+| **`/frontend`** | Twin Worlds landing page, 10-level B&W campaign, MongoDB imagery | [frontend/AGENTS.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/frontend/AGENTS.md) | React 18, Vite, CSS design system |
 | **`/model`** | Reserved for Phase II offline PyTorch Vision Transformer embeddings | [model/AGENTS.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/model/AGENTS.md) | Reserved (Placeholder) |
 
 ---

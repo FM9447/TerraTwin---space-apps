@@ -1,8 +1,0 @@
-.page {
-  padding-top: var(--nav-h);
-}
-
-/* A page head is the top of its page, not a section between others. */
-.head {
-  padding-bottom: clamp(1rem, 3vw, 2rem);
-}

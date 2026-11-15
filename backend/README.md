@@ -1,6 +1,6 @@
 # TerraTwin - Node.js & MongoDB Backend ⚙️🛰️
 
-The **TerraTwin Backend** is an enterprise-grade scientific Node.js & Express REST API powered entirely by **MongoDB Atlas**. It handles 100% NASA scientific dataset indexing, 2dsphere geospatial queries (`$near`, `$geoWithin`), multi-criteria parametric similarity scoring, visual photo feature matching, and serves all 100 levels of the Cosmic Detective reconnaissance game.
+The **TerraTwin Backend** is an enterprise-grade scientific Node.js & Express REST API powered entirely by **MongoDB Atlas**. It handles 100% NASA scientific dataset indexing, 2dsphere geospatial queries (`$near`, `$geoWithin`), multi-criteria parametric similarity scoring, visual photo feature matching, and serves the 100-question Cosmic Detective bank as a 10-level campaign.
 
 ---
 
@@ -21,7 +21,7 @@ The **TerraTwin Backend** is an enterprise-grade scientific Node.js & Express RE
 ┌──────────────────────────────▼──────────────────────────────┐
 │                    MongoDB Atlas Cluster                    │
 │  • Analogs (GeoJSON Point & 2dsphere Spatial Index)         │
-│  • GameLevels (100 Progressive B&W Educational Levels)      │
+│  • GameLevels (100-question bank → 10-level B&W campaign)      │
 │  • PlanetaryTargets (Artemis Lunar South Pole & Mars Zones) │
 │  • NasaDatasets (10 Verified LP DAAC, GES DISC & PDS Sources)│
 └─────────────────────────────────────────────────────────────┘
@@ -36,16 +36,16 @@ backend/
 ├── src/
 │   ├── db/
 │   │   ├── connection.js         # Mongoose connection manager with auto-retry
-│   │   └── seed.js               # Database seeder (seeds all 100 levels, targets, analogs)
+│   │   └── seed.js               # Database seeder (100 questions, targets, analogs, both GridFS buckets)
 │   ├── models/
 │   │   ├── Analog.js             # Mongoose schema with GeoJSON 2dsphere index
 │   │   ├── PlanetaryTarget.js    # Moon & Mars reference targets schema
-│   │   ├── GameLevel.js          # 100-level B&W reconnaissance game schema
+│   │   ├── GameLevel.js          # B&W reconnaissance question schema
 │   │   └── NasaDataset.js        # 100% NASA dataset catalog schema
 │   ├── nasaDataCatalog.js        # 100% NASA datasets, Moon/Mars targets, Earth analogs
 │   ├── similarityEngine.js       # PRD Section 8 hybrid similarity scoring engine
 │   ├── imageSimilarityEngine.js  # Feature 2 visual & morphological photo matcher
-│   └── gameLevelsData.js         # 100 educational levels categorized by 4 difficulty tiers
+│   └── gameLevelsData.js         # 100 educational questions in 4 difficulty tiers
 ├── server.js                     # Express REST API routes & CORS configuration
 ├── .env.example                  # Environment configuration template
 ├── package.json                  # Node.js dependencies (express, mongoose, dotenv)
@@ -81,11 +81,15 @@ backend/
   - Extracts 5D morphological feature vectors (edge density, texture roughness, albedo, crater/volcanic morphology).
   - Searches and returns the closest visual counterparts across Earth, Moon, and Mars.
 
-### 4. 100-Level Cosmic Detective Game Engine
+### 4. Cosmic Detective Campaign Engine (10 levels × 10 questions)
+- `GET /api/game/campaign`
+  - Builds the 10-level campaign from the 100-question bank: every site used once, all three worlds in every level, difficulty ramping from level 1 to level 10, and question order shuffled per request. Payloads stay sanitized.
 - `GET /api/game/levels`
-  - Queries MongoDB Atlas for 100 levels with pagination and optional difficulty filtering (`novice`, `explorer`, `specialist`, `commander`).
+  - Queries MongoDB Atlas for the 100 source questions with pagination and optional difficulty filtering (`novice`, `explorer`, `specialist`, `commander`).
 - `POST /api/game/guess`
-  - Verifies player guess (`earth_analog`, `moon`, `mars`) and returns the full-color reveal, exact coordinates, and detailed NASA scientific rationale.
+  - Verifies the player guess (`earth_analog`, `moon`, `mars`) and returns the full-colour reveal, exact coordinates, and detailed NASA scientific rationale.
+- `GET /api/assets/:key`
+  - Streams the editorial Twin Worlds imagery from the `siteassets` GridFS bucket.
 
 ---
 
@@ -108,7 +112,7 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.3ohbt20.mongodb.net/ter
 ```
 
 ### 3. Database Seeding
-Seed all 100 educational game levels, planetary targets, and Earth analogs into your MongoDB Atlas cluster:
+Seed the 100-question bank, planetary targets, Earth analogs and both image buckets into your MongoDB Atlas cluster:
 ```bash
 npm run seed
 ```
