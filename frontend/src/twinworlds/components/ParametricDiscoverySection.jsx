@@ -1,6 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { API_BASE } from '../content';
 
+function formatCoordinates(coords) {
+  if (!coords) return '';
+  if (Array.isArray(coords) && coords.length >= 2) {
+    const c0 = typeof coords[0] === 'number' ? coords[0].toFixed(2) : coords[0];
+    const c1 = typeof coords[1] === 'number' ? coords[1].toFixed(2) : coords[1];
+    return ` · [${c0}°, ${c1}°]`;
+  }
+  if (typeof coords === 'object') {
+    const lat = typeof coords.lat === 'number' ? coords.lat.toFixed(2) : (coords.latitude ?? coords.lat);
+    const lon = typeof coords.lon === 'number' ? coords.lon.toFixed(2) : (coords.longitude ?? coords.lon);
+    if (lat !== undefined && lon !== undefined) {
+      return ` · [${lat}°, ${lon}°]`;
+    }
+  }
+  return '';
+}
+
 const PROFILES = [
   { id: 'permanent_base', label: 'Permanent Base', target: 'Moon', desc: 'Cryogenic cold survival, solar grazing, slope safety, basalt shielding.' },
   { id: 'robotic_landing', label: 'Robotic Landing', target: 'Mars', desc: 'Low hazard roughness, gentle terrain, hyperarid dust trafficability.' },
@@ -250,8 +267,8 @@ export default function ParametricDiscoverySection() {
                     {analog.name}
                   </h3>
                   <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-micro)', color: 'var(--muted)' }}>
-                    {analog.country} · {analog.geographic_context?.elevation || analog.elevation_m}
-                    {analog.coordinates && ` · [${analog.coordinates[0].toFixed(2)}°, ${analog.coordinates[1].toFixed(2)}°]`}
+                    {analog.country} · {analog.geographic_context?.elevation || analog.elevation_m || analog.elevation}
+                    {formatCoordinates(analog.coordinates || analog.geographic_context?.coordinates || analog.location?.coordinates)}
                   </p>
                 </div>
 

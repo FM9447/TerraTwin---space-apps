@@ -341,7 +341,7 @@ export default function PhotoMatcherSection() {
                 </h3>
                 {primaryMatch.coordinates && (
                   <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-micro)', color: 'var(--muted)', marginBottom: '0.6rem' }}>
-                    COORDINATES: {primaryMatch.coordinates.lat}°N · {primaryMatch.coordinates.lon}°E
+                    COORDINATES: {typeof primaryMatch.coordinates.lat === 'number' ? `${primaryMatch.coordinates.lat.toFixed(2)}°N` : Array.isArray(primaryMatch.coordinates) ? `${primaryMatch.coordinates[1]}°` : `${primaryMatch.coordinates.lat || '—'}°`} · {typeof primaryMatch.coordinates.lon === 'number' ? `${primaryMatch.coordinates.lon.toFixed(2)}°E` : Array.isArray(primaryMatch.coordinates) ? `${primaryMatch.coordinates[0]}°` : `${primaryMatch.coordinates.lon || '—'}°`}
                   </p>
                 )}
                 <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text)', lineHeight: '1.5', marginBottom: '0.8rem' }}>

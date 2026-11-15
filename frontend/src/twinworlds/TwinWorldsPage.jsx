@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 import Preloader, { CursorLayer } from './components/Preloader';
 import FxLayers from './components/FxLayers';
 import Nav from './components/Nav';
@@ -66,9 +67,13 @@ export default function TwinWorldsPage() {
         />
 
         <CompareSection />
-        <PhotoMatcherSection />
+        <ErrorBoundary>
+          <PhotoMatcherSection />
+        </ErrorBoundary>
         <LookalikesSection />
-        <ParametricDiscoverySection />
+        <ErrorBoundary>
+          <ParametricDiscoverySection />
+        </ErrorBoundary>
         <GallerySection />
 
         <div className="divider" aria-hidden="true">
