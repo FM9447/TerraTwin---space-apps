@@ -5,6 +5,12 @@
       "version": "2.0.0",
       "installedAt": "2026-11-15T15:04:27.942Z",
       "platform": "gemini"
+    },
+    "agent-governance": {
+      "version": "1.0.0",
+      "installedAt": "2026-11-15T21:13:00.000Z",
+      "platform": "gemini",
+      "source": "FM9447/my-dev-setup@skills/agent-governance"
     }
   }
 }
