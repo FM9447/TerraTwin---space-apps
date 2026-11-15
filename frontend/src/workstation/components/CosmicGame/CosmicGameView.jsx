@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Gamepad2, Trophy, HelpCircle, Eye, ArrowRight, RotateCcw, CheckCircle2, XCircle, Sparkles, AlertCircle, Compass, Zap } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { GAME_LEVELS_100 } from '../../data/gameLevelsData';
@@ -12,6 +12,8 @@ const DIFFICULTY_TIERS = [
 ];
 
 export default function CosmicGameView() {
+  const [levels, setLevels] = useState(GAME_LEVELS_100);
+  const [isBackendConnected, setIsBackendConnected] = useState(false);
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0); // 0-based index for level 1
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [hasGuessed, setHasGuessed] = useState(false);
@@ -28,13 +30,47 @@ export default function CosmicGameView() {
     score: 0
   });
 
-  const currentLevel = GAME_LEVELS_100[currentLevelIndex] || GAME_LEVELS_100[0];
+  useEffect(() => {
+    // Fetch levels from backend if available
+    fetch('/api/game/levels?limit=100')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.levels && data.levels.length > 0) {
+          setLevels(data.levels);
+          setIsBackendConnected(true);
+        }
+      })
+      .catch(() => {
+        // Keep fallback levels
+      });
+  }, []);
 
-  const handleMakeGuess = (guessType) => {
+  const currentLevel = levels[currentLevelIndex] || levels[0] || GAME_LEVELS_100[0];
+
+  const handleMakeGuess = async (guessType) => {
     if (hasGuessed) return;
 
     setUserGuess(guessType);
-    const correct = currentLevel.target_type === guessType;
+    let correct = currentLevel.target_type === guessType;
+
+    // Try backend verification
+    try {
+      const res = await fetch('/api/game/guess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          level_number: currentLevel.level_number,
+          user_guess: guessType
+        })
+      });
+      if (res.ok) {
+        const result = await res.json();
+        correct = result.is_correct;
+      }
+    } catch {
+      // Local fallback
+    }
+
     setIsCorrect(correct);
     setHasGuessed(true);
 
@@ -68,7 +104,7 @@ export default function CosmicGameView() {
     setUserGuess(null);
     setIsCorrect(false);
     setShowClues(false);
-    setCurrentLevelIndex((prev) => (prev + 1) % GAME_LEVELS_100.length);
+    setCurrentLevelIndex((prev) => (prev + 1) % levels.length);
   };
 
   const handleLevelSelect = (lvlNum) => {
@@ -94,6 +130,11 @@ export default function CosmicGameView() {
           </div>
           <span className="hidden sm:inline-block text-[10px] font-mono bg-amber-950/80 text-amber-300 border border-amber-800 px-2 py-0.5 rounded">
             100 PROGRESSIVE LEVELS
+          </span>
+          <span className={`hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded border ${
+            isBackendConnected ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800' : 'bg-slate-900/80 text-slate-400 border-slate-700'
+          }`}>
+            ● {isBackendConnected ? 'MongoDB Atlas Live' : 'Offline Mode'}
           </span>
         </div>
 
