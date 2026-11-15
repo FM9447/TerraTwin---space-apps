@@ -12,8 +12,10 @@ export const NAV_LINKS = [
   { id: 'mars', num: '02', label: 'Mars' },
   { id: 'moon', num: '03', label: 'Moon' },
   { id: 'compare', num: '04', label: 'Compare' },
-  { id: 'gallery', num: '05', label: 'Gallery' },
-  { id: 'game', num: '06', label: 'Game' }
+  { id: 'scanner', num: '05', label: 'Photo Twin' },
+  { id: 'finder', num: '06', label: 'Finder' },
+  { id: 'gallery', num: '07', label: 'Gallery' },
+  { id: 'game', num: '08', label: 'Game' }
 ];
 
 export const HERO_STATS = [

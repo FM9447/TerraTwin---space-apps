@@ -8,7 +8,9 @@ import WorldsSection from './components/WorldsSection';
 import FidelitySection from './components/FidelitySection';
 import AnalogsSection from './components/AnalogsSection';
 import CompareSection from './components/CompareSection';
+import PhotoMatcherSection from './components/PhotoMatcherSection';
 import LookalikesSection from './components/LookalikesSection';
+import ParametricDiscoverySection from './components/ParametricDiscoverySection';
 import GallerySection from './components/GallerySection';
 import GameSection from './game/GameSection';
 import SourcesSection from './components/SourcesSection';
@@ -64,7 +66,9 @@ export default function TwinWorldsPage() {
         />
 
         <CompareSection />
+        <PhotoMatcherSection />
         <LookalikesSection />
+        <ParametricDiscoverySection />
         <GallerySection />
 
         <div className="divider" aria-hidden="true">

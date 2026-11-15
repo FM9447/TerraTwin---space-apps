@@ -14,12 +14,25 @@ import { NASA_EARTH_ANALOGS, NASA_PRD_MISSION_PROFILES } from './nasaDataCatalog
  * @param {Object} inputCriteria - Values for { roughness, relief, slope, aridity, thermal, rockiness, volcanic, access }
  * @param {string} missionProfileId - 'permanent_base' | 'robotic_landing' | 'surface_exploration' | 'scientific_habitability'
  * @param {Object} customWeights - Optional overrides for dimension weights
+ * @param {string} targetPlanet - 'all' | 'mars' | 'moon'
  */
-export function calculateAnalogDiscoveries(inputCriteria = {}, missionProfileId = 'permanent_base', customWeights = null) {
+export function calculateAnalogDiscoveries(inputCriteria = {}, missionProfileId = 'permanent_base', customWeights = null, targetPlanet = 'all') {
   const profile = NASA_PRD_MISSION_PROFILES.find(p => p.id === missionProfileId) || NASA_PRD_MISSION_PROFILES[0];
   const weights = customWeights || profile.default_weights;
 
-  const results = NASA_EARTH_ANALOGS.map(analog => {
+  // Filter candidates if target planet is specified
+  let candidateAnalogs = NASA_EARTH_ANALOGS;
+  if (targetPlanet && targetPlanet !== 'all') {
+    const planetKey = targetPlanet.toLowerCase();
+    candidateAnalogs = candidateAnalogs.filter(a =>
+      Array.isArray(a.planetary_analogy) && a.planetary_analogy.some(p => p.toLowerCase().includes(planetKey))
+    );
+    if (candidateAnalogs.length === 0) {
+      candidateAnalogs = NASA_EARTH_ANALOGS; // Fallback if filter too strict
+    }
+  }
+
+  const results = candidateAnalogs.map(analog => {
     let weightedSum = 0;
     let weightTotal = 0;
     let validDimensionsCount = 0;
@@ -63,7 +76,27 @@ export function calculateAnalogDiscoveries(inputCriteria = {}, missionProfileId 
       data_coverage: dataCoverage,
       data_confidence: dataConfidence,
       active_mission_profile: profile.name,
-      dimension_breakdown: dimensionBreakdown
+      target_planet_filter: targetPlanet,
+      dimension_breakdown: dimensionBreakdown,
+      geographic_context: {
+        coordinates: analog.coordinates, // [longitude, latitude]
+        elevation: analog.elevation_m,
+        morphology: analog.morphology
+      },
+      environmental_context: {
+        thermal_swing_k: analog.metrics.thermal,
+        aridity_index: analog.metrics.aridity,
+        basalt_fraction: analog.metrics.volcanic,
+        roughness_tri: analog.metrics.roughness
+      },
+      scientific_honesty: {
+        limitations: analog.scientific_breakdown?.limitations || [
+          "Earth atmospheric pressure is 101 kPa vs Mars 0.6 kPa / Moon vacuum",
+          "Earth surface gravity is 1.0g vs Moon 0.166g / Mars 0.38g",
+          "Earth magnetosphere and ozone shield block solar particle events (SPEs) and deep UV flux"
+        ],
+        why_analog: analog.scientific_breakdown?.why_analog
+      }
     };
   });
 
@@ -72,6 +105,7 @@ export function calculateAnalogDiscoveries(inputCriteria = {}, missionProfileId 
 
   return {
     mission_profile: profile,
+    target_planet: targetPlanet,
     used_weights: weights,
     total_candidates_screened: results.length,
     ranked_analogs: results

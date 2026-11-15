@@ -4,8 +4,8 @@ import { NASA_EARTH_ANALOGS } from '../nasaDataCatalog.js';
 
 export async function searchAnalogs(req, res, next) {
   try {
-    const { input_criteria, mission_profile_id, custom_weights } = req.body;
-    const result = calculateAnalogDiscoveries(input_criteria, mission_profile_id, custom_weights);
+    const { input_criteria, mission_profile_id, custom_weights, target_planet } = req.body;
+    const result = calculateAnalogDiscoveries(input_criteria, mission_profile_id, custom_weights, target_planet);
     res.json(result);
   } catch (err) {
     next(err);
