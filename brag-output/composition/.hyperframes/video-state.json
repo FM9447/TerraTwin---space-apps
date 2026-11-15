@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "339ae287-9996-49b8-9a67-0346ec14ecba",
-  "currentRevision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2",
+  "currentRevision": "920dcd09-0575-4c37-9b54-088568b680d2",
   "pendingChanges": false,
   "files": {
     "assets/atacama.jpg": {
@@ -49,8 +49,8 @@
       "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
     },
     "index.html": {
-      "hash": "a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782",
-      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/a9/a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782"
+      "hash": "b89e14bd6a9dcf82ee7e0f2c4e8bf29ee6997dfe8d6fd74bcd59ec8895dcce8a",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/b8/b89e14bd6a9dcf82ee7e0f2c4e8bf29ee6997dfe8d6fd74bcd59ec8895dcce8a"
     },
     "meta.json": {
       "hash": "1c749cde8ede67943657940eef10c048f9dcccdbe314635ced6b2f5682a6615b",
@@ -63,6 +63,10 @@
     "assets/music.mp3": {
       "hash": "aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f",
       "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/aa/aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+    },
+    "assets/sfx/chime.ogg": {
+      "hash": "49fe4fafa2001bd0d312976796824571ca8429851f285997e1327d17bb34fd00",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/49/49fe4fafa2001bd0d312976796824571ca8429851f285997e1327d17bb34fd00"
     }
   },
   "revisions": {
@@ -78,6 +82,40 @@
         "index.html": {
           "before": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/35/3521a5dc05440568faa32a78494b54aa2afd869bc36479da9d26db403c402a0f",
           "after": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/a9/a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782"
+        }
+      }
+    },
+    "3aadfc35-5b1e-491c-a708-d9e52fb1bca9": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794765054048,
+      "endedAt": 1794765054108,
+      "files": {
+        "assets/sfx/chime.ogg": {
+          "before": null,
+          "after": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/49/49fe4fafa2001bd0d312976796824571ca8429851f285997e1327d17bb34fd00"
+        },
+        "index.html": {
+          "before": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/a9/a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782",
+          "after": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/87/872c6d6a45ccc03c0648c67871993ff1c34c79cc36733a54aa33143d0a9c539a"
+        }
+      }
+    },
+    "920dcd09-0575-4c37-9b54-088568b680d2": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794765090467,
+      "endedAt": 1794765090468,
+      "files": {
+        "index.html": {
+          "before": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/87/872c6d6a45ccc03c0648c67871993ff1c34c79cc36733a54aa33143d0a9c539a",
+          "after": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/b8/b89e14bd6a9dcf82ee7e0f2c4e8bf29ee6997dfe8d6fd74bcd59ec8895dcce8a"
         }
       }
     }
@@ -123,6 +161,44 @@
           "inputFingerprint": "b2253620cc065c671053873b2b1c59f0483954cf0ce6bf425e8725c46283c47b",
           "inputScope": "local-project-files",
           "attribution": "recorded-revision"
+        }
+      ],
+      "3aadfc35-5b1e-491c-a708-d9e52fb1bca9": [
+        {
+          "id": "34df4ebe-927d-45f0-b7ed-59b1231ccc1c",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794765063136,
+          "contentHash": "e85426cecca50c948719a91e581d63f9771c06768ab4407af9fc40e8b0a91a36",
+          "revision": "3aadfc35-5b1e-491c-a708-d9e52fb1bca9",
+          "inputFingerprint": "69eb1619dc594ccdac6349425bdfc6e1250f36ddfd0b988a03531084bd14798e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "dd2d6173-ace9-4e54-ac09-7196b252d888"
         }
       ]
     },
@@ -171,13 +247,14 @@
   },
   "renders": {
     "latest": {
-      "id": "c8adf2ce-8026-4c0e-9137-1d0127d2f554",
-      "completedAt": 1794764571196,
+      "id": "dd2d6173-ace9-4e54-ac09-7196b252d888",
+      "completedAt": 1794765111408,
       "output": "/media/fm9447/D/MULearn/TerraTwin - Space Apps/brag-output/brag.mp4",
       "status": "completed",
-      "revision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2"
+      "revision": "920dcd09-0575-4c37-9b54-088568b680d2"
     },
     "retainedRevisions": [
+      "920dcd09-0575-4c37-9b54-088568b680d2",
       "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2"
     ]
   },

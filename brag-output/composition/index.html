@@ -24,7 +24,7 @@
         --moon: #e8edf5;
         --text: #ffffff;
         --muted: #a4b3c6;
-        --faint: #5a6678;
+        --faint: #6f7c8d;
         --font-display: 'Inter Tight', sans-serif;
         --font-mono: 'IBM Plex Mono', monospace;
       }
@@ -74,7 +74,7 @@
       /* Global Header HUD */
       .hud-header {
         position: absolute;
-        top: 40px;
+        top: 36px;
         left: 60px;
         right: 60px;
         display: flex;
@@ -86,7 +86,7 @@
         letter-spacing: 0.15em;
         text-transform: uppercase;
         border-bottom: 1px solid var(--line);
-        padding-bottom: 20px;
+        padding-bottom: 18px;
       }
 
       .hud-brand {
@@ -404,57 +404,128 @@
         font-family: var(--font-mono);
       }
 
-      /* SCENE 5: 100-LEVEL GAME */
-      .game-box {
-        width: 900px;
+      /* SCENE 5: EXPANDED 100-LEVEL CAMPAIGN GAME */
+      .game-container {
+        width: 1100px;
         background: var(--panel);
         border: 1px solid var(--line-bright);
-        border-radius: 14px;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
       }
 
-      .game-header {
+      .game-topbar {
         display: flex;
         justify-content: space-between;
-        padding: 16px 24px;
+        align-items: center;
+        padding: 16px 28px;
         background: var(--panel-2);
         border-bottom: 1px solid var(--line);
         font-family: var(--font-mono);
-        font-size: 13px;
+        font-size: 14px;
+      }
+
+      .game-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background: #000;
+        overflow: hidden;
       }
 
       .game-img {
         width: 100%;
-        height: 380px;
+        height: 100%;
         object-fit: cover;
+        filter: grayscale(100%) contrast(1.15);
       }
 
-      .game-actions {
+      .game-mode-tag {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        padding: 6px 14px;
+        border-radius: 4px;
+        background: rgba(3, 5, 9, 0.85);
+        border: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .game-clue-bar {
+        padding: 12px 28px;
+        background: rgba(217, 164, 91, 0.08);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--sun);
         display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .game-clue-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--sun);
+      }
+
+      .game-choices {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 16px;
-        padding: 24px;
+        padding: 24px 28px;
         background: var(--panel);
       }
 
       .game-btn {
-        flex: 1;
-        padding: 16px;
+        padding: 18px 12px;
         border-radius: 8px;
-        background: rgba(214, 226, 240, 0.05);
+        background: rgba(214, 226, 240, 0.04);
         border: 1px solid var(--line);
         font-family: var(--font-mono);
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--text);
         text-align: center;
       }
 
       .game-btn.selected {
-        background: rgba(106, 168, 255, 0.2);
+        background: rgba(106, 168, 255, 0.25);
         border-color: var(--earth);
         color: var(--earth);
-        box-shadow: 0 0 20px rgba(106, 168, 255, 0.3);
+        box-shadow: 0 0 25px rgba(106, 168, 255, 0.4);
+      }
+
+      .game-banner {
+        padding: 14px 28px;
+        background: rgba(106, 168, 255, 0.12);
+        border-top: 1px solid var(--earth);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        color: var(--earth);
+      }
+
+      .game-badges-row {
+        display: flex;
+        gap: 16px;
+        margin-top: 18px;
+        justify-content: center;
+      }
+
+      .game-mini-pill {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--faint);
+        padding: 4px 12px;
+        border-radius: 4px;
+        border: 1px solid var(--line);
       }
 
       /* SCENE 6: OUTRO */
@@ -472,30 +543,31 @@
         font-size: 28px;
         font-weight: 300;
         color: var(--muted);
-        margin-bottom: 40px;
+        margin-bottom: 36px;
       }
 
       .s6-cta-box {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
-        padding: 20px 48px;
-        background: rgba(217, 164, 91, 0.08);
-        border: 1px solid var(--sun);
+        gap: 14px;
+        padding: 24px 56px;
+        background: rgba(217, 164, 91, 0.1);
+        border: 2px solid var(--sun);
         border-radius: 12px;
+        box-shadow: 0 0 40px rgba(217, 164, 91, 0.25);
       }
 
       .s6-cta-url {
         font-family: var(--font-mono);
-        font-size: 24px;
-        font-weight: 600;
+        font-size: 32px;
+        font-weight: 700;
         color: var(--sun);
         letter-spacing: 0.05em;
       }
 
       .s6-nasa-badge {
-        margin-top: 32px;
+        margin-top: 36px;
         font-family: var(--font-mono);
         font-size: 14px;
         color: var(--faint);
@@ -508,20 +580,21 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="22"
+      data-duration="24"
       data-width="1920"
       data-height="1080"
     >
       <!-- Soundtracks & UI Cues inside root composition -->
-      <audio id="bg-music" class="clip" src="assets/music.mp3" data-start="0" data-duration="22" data-volume="0.8" data-fade-out="1.5"></audio>
-      <audio id="sfx-switch-0" class="clip" src="assets/sfx/switch.ogg" data-start="0.1" data-duration="0.5" data-volume="0.5"></audio>
-      <audio id="sfx-switch-1" class="clip" src="assets/sfx/switch.ogg" data-start="3.0" data-duration="0.5" data-volume="0.6"></audio>
-      <audio id="sfx-click-1" class="clip" src="assets/sfx/click.ogg" data-start="7.5" data-duration="0.4" data-volume="0.5"></audio>
-      <audio id="sfx-switch-2" class="clip" src="assets/sfx/switch.ogg" data-start="11.8" data-duration="0.5" data-volume="0.6"></audio>
-      <audio id="sfx-blip-1" class="clip" src="assets/sfx/blip.ogg" data-start="13.2" data-duration="0.4" data-volume="0.5"></audio>
-      <audio id="sfx-switch-3" class="clip" src="assets/sfx/switch.ogg" data-start="16.2" data-duration="0.5" data-volume="0.6"></audio>
-      <audio id="sfx-click-2" class="clip" src="assets/sfx/click.ogg" data-start="17.2" data-duration="0.4" data-volume="0.6"></audio>
-      <audio id="sfx-switch-4" class="clip" src="assets/sfx/switch.ogg" data-start="19.2" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="bg-music" class="clip" src="assets/music.mp3" data-start="0" data-duration="24" data-volume="0.8" data-fade-out="1.5"></audio>
+      <audio id="sfx-switch-0" class="clip" src="assets/sfx/switch.ogg" data-start="0.1" data-duration="0.41" data-volume="0.5"></audio>
+      <audio id="sfx-switch-1" class="clip" src="assets/sfx/switch.ogg" data-start="2.8" data-duration="0.41" data-volume="0.6"></audio>
+      <audio id="sfx-click-1" class="clip" src="assets/sfx/click.ogg" data-start="6.5" data-duration="0.09" data-volume="0.5"></audio>
+      <audio id="sfx-switch-2" class="clip" src="assets/sfx/switch.ogg" data-start="10.2" data-duration="0.41" data-volume="0.6"></audio>
+      <audio id="sfx-blip-1" class="clip" src="assets/sfx/blip.ogg" data-start="11.4" data-duration="0.06" data-volume="0.5"></audio>
+      <audio id="sfx-switch-3" class="clip" src="assets/sfx/switch.ogg" data-start="14.2" data-duration="0.41" data-volume="0.6"></audio>
+      <audio id="sfx-click-2" class="clip" src="assets/sfx/click.ogg" data-start="16.5" data-duration="0.09" data-volume="0.6"></audio>
+      <audio id="sfx-chime-1" class="clip" src="assets/sfx/chime.ogg" data-start="16.7" data-duration="0.30" data-volume="0.7"></audio>
+      <audio id="sfx-switch-4" class="clip" src="assets/sfx/switch.ogg" data-start="19.8" data-duration="0.41" data-volume="0.7"></audio>
 
       <div class="grid-bg"></div>
       <div class="vignette"></div>
@@ -535,18 +608,18 @@
         <div class="hud-telemetry">
           <span>DATA: <b>100% NASA DAAC</b></span>
           <span>ORBIT: <b>STABLE</b></span>
-          <span>CHALLENGE: <b>NASA SPACE APPS 2026</b></span>
+          <span>DOMAIN: <b>TERRATWIN.VERCEL.APP</b></span>
         </div>
       </header>
 
-      <!-- SCENE 1: THE HOOK (0s - 3.2s) -->
+      <!-- SCENE 1: THE HOOK (0s - 3.0s) -->
       <div class="scene" id="scene1">
         <div class="s1-kicker">✦ NASA SPACE APPS CHALLENGE 9 ✦</div>
         <h1 class="s1-title">Before humanity leaves Earth...<br/><span style="color: var(--sun);">we rehearse on Earth.</span></h1>
         <p class="s1-sub">Earth's extreme deserts and volcanic basins mirror Mars and the Moon.</p>
       </div>
 
-      <!-- SCENE 2: THE REVEAL & PLANETS (3.0s - 7.2s) -->
+      <!-- SCENE 2: THE REVEAL & PLANETS (2.8s - 6.5s) -->
       <div class="scene" id="scene2">
         <div class="s2-planets">
           <div class="planet-card" id="planetEarth">
@@ -574,7 +647,7 @@
         </div>
       </div>
 
-      <!-- SCENE 3: DEMO 1 — PARAMETRIC DISCOVERY (7.0s - 12.0s) -->
+      <!-- SCENE 3: DEMO 1 — PARAMETRIC DISCOVERY (6.2s - 10.5s) -->
       <div class="scene" id="scene3">
         <div class="demo-grid">
           <!-- Left: Parametric Sliders -->
@@ -625,7 +698,7 @@
         </div>
       </div>
 
-      <!-- SCENE 4: DEMO 2 — VISUAL PHOTO TWIN MATCHER (11.8s - 16.5s) -->
+      <!-- SCENE 4: DEMO 2 — VISUAL PHOTO TWIN MATCHER (10.2s - 14.5s) -->
       <div class="scene" id="scene4">
         <div style="font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; color: var(--sun); margin-bottom: 24px;">
           02 // VISUAL PHOTO TWIN MATCHER · PDS HEURISTIC
@@ -652,32 +725,58 @@
         </div>
       </div>
 
-      <!-- SCENE 5: DEMO 3 — 100-LEVEL CAMPAIGN GAME (16.2s - 19.5s) -->
+      <!-- SCENE 5: EXPANDED DEMO 3 — 100-LEVEL CAMPAIGN GAME (14.2s - 20.0s) -->
       <div class="scene" id="scene5">
-        <div style="font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; color: var(--earth); margin-bottom: 20px;">
-          03 // 100-LEVEL CAMPAIGN GAME · DO YOU TRUST YOUR EYES?
+        <div style="font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; color: var(--earth); margin-bottom: 18px;">
+          03 // GUESS THE PLANET · 100-LEVEL CAMPAIGN GAME
         </div>
-        <div class="game-box" id="gameBox">
-          <div class="game-header">
-            <span>LEVEL 14 // ARCTIC CRATER FLATS</span>
-            <span style="color: var(--sun);">STREAK: ×1.6 (MULTIPLIER ACTIVE)</span>
+        <div class="game-container" id="gameBox">
+          <div class="game-topbar">
+            <span>LEVEL 03 · ARCTIC IMPACT CRATER</span>
+            <span style="color: var(--sun);">SCORE: 1,450 · STREAK <b id="streakVal">×1.8</b></span>
           </div>
-          <img class="game-img" src="assets/devon.jpg" alt="Level terrain" />
-          <div class="game-actions">
-            <div class="game-btn selected" id="btnEarth">EARTH (DEVON ISLAND) ✓</div>
-            <div class="game-btn" id="btnMars">MARS (GALE CRATER)</div>
-            <div class="game-btn" id="btnMoon">MOON (MARE IMBRIUM)</div>
+
+          <!-- Terrain Image: Panchromatic B&W to Color -->
+          <div class="game-image-wrapper">
+            <span class="game-mode-tag" id="gameModeTag">● PANCHROMATIC MONOCHROME MODE</span>
+            <img class="game-img" id="gameTerrainImg" src="assets/devon.jpg" alt="Level terrain" />
           </div>
+
+          <!-- Clue Bar -->
+          <div class="game-clue-bar" id="gameClueBar">
+            <span class="game-clue-dot"></span>
+            <span>NASA TELEMETRY CLUE: HYPERVELOCITY IMPACT BRECCIA IN POLAR PERMAFROST</span>
+          </div>
+
+          <!-- Guess Buttons -->
+          <div class="game-choices">
+            <div class="game-btn" id="btnMars">MARS · GALE CRATER</div>
+            <div class="game-btn" id="btnEarth">EARTH · DEVON ISLAND</div>
+            <div class="game-btn" id="btnMoon">MOON · MARE IMBRIUM</div>
+          </div>
+
+          <!-- Victory Outcome Banner (reveals on click) -->
+          <div class="game-banner" id="gameVictoryBanner" style="opacity: 0;">
+            <span>✓ CORRECT! DEVON ISLAND, CANADIAN HIGH ARCTIC</span>
+            <span style="color: var(--sun); font-weight: 600;">+200 PTS · ★★★ LEVEL COMPLETE</span>
+          </div>
+        </div>
+
+        <div class="game-badges-row">
+          <span class="game-mini-pill">100 Unique Levels</span>
+          <span class="game-mini-pill">Panchromatic → True Colour Reveal</span>
+          <span class="game-mini-pill">GridFS Asset Streaming</span>
+          <span class="game-mini-pill">Server-Sanitized Anti-Cheat</span>
         </div>
       </div>
 
-      <!-- SCENE 6: OUTRO & CALL TO ACTION (19.2s - 22.0s) -->
+      <!-- SCENE 6: OUTRO & CALL TO ACTION (19.8s - 24.0s) -->
       <div class="scene" id="scene6">
         <h1 class="s6-title">TERRATWIN</h1>
         <p class="s6-tagline">Other worlds are closer than you think.</p>
         <div class="s6-cta-box" id="ctaBox">
-          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.1em;">EXPLORE THE WORKSTATION LIVE</span>
-          <span class="s6-cta-url">frontend-nine-livid-46.vercel.app</span>
+          <span style="font-family: var(--font-mono); font-size: 14px; color: var(--muted); letter-spacing: 0.15em;">EXPLORE THE WORKSTATION LIVE</span>
+          <span class="s6-cta-url">https://terratwin.vercel.app</span>
         </div>
         <div class="s6-nasa-badge">
           NASA INTERNATIONAL SPACE APPS CHALLENGE 2026 · CHALLENGE 9
@@ -691,39 +790,54 @@
       // Persistent HUD Fade In
       tl.fromTo("#hudHeader", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.2);
 
-      // --- SCENE 1: THE HOOK (0.0s - 3.2s) ---
+      // --- SCENE 1: THE HOOK (0.0s - 3.0s) ---
       tl.fromTo("#scene1", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.2)
-        .to("#scene1", { opacity: 0, scale: 1.05, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, 2.8);
+        .to("#scene1", { opacity: 0, scale: 1.05, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 2.6);
 
-      // --- SCENE 2: PLANETARY REVEAL (3.0s - 7.2s) ---
-      tl.fromTo("#scene2", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.1)
-        .fromTo("#planetEarth", { opacity: 0, x: -80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.2)
-        .fromTo("#planetMoon", { opacity: 0, y: 50, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.4)
-        .fromTo("#planetMars", { opacity: 0, x: 80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.6)
-        .fromTo("#s2Text", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.9)
-        .to("#scene2", { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 6.8);
+      // --- SCENE 2: PLANETARY REVEAL (2.8s - 6.5s) ---
+      tl.fromTo("#scene2", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.9)
+        .fromTo("#planetEarth", { opacity: 0, x: -80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 3.0)
+        .fromTo("#planetMoon", { opacity: 0, y: 50, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 3.2)
+        .fromTo("#planetMars", { opacity: 0, x: 80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 3.4)
+        .fromTo("#s2Text", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.6)
+        .to("#scene2", { opacity: 0, scale: 0.96, duration: 0.35, ease: "power2.in" }, 6.2);
 
-      // --- SCENE 3: DEMO 1 - PARAMETRIC DISCOVERY (7.0s - 12.0s) ---
-      tl.fromTo("#scene3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 7.0)
-        .fromTo("#sliderPanel", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.2)
-        .fromTo("#candidateCard", { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.5)
-        .to("#scene3", { opacity: 0, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, 11.6);
+      // --- SCENE 3: DEMO 1 - PARAMETRIC DISCOVERY (6.2s - 10.5s) ---
+      tl.fromTo("#scene3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 6.3)
+        .fromTo("#sliderPanel", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 6.5)
+        .fromTo("#candidateCard", { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 6.8)
+        .to("#scene3", { opacity: 0, filter: "blur(6px)", duration: 0.35, ease: "power2.in" }, 10.0);
 
-      // --- SCENE 4: DEMO 2 - PHOTO TWIN MATCHER (11.8s - 16.5s) ---
-      tl.fromTo("#scene4", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 11.8)
-        .fromTo("#photoInputFrame", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 12.0)
-        .fromTo("#scanline", { y: 0 }, { y: 476, duration: 1.8, ease: "power1.inOut" }, 12.2)
-        .fromTo("#photoTwinFrame", { opacity: 0, x: 60, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.6, ease: "back.out(1.3)" }, 13.2)
-        .to("#scene4", { opacity: 0, duration: 0.4, ease: "power2.in" }, 16.0);
+      // --- SCENE 4: DEMO 2 - PHOTO TWIN MATCHER (10.2s - 14.5s) ---
+      tl.fromTo("#scene4", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 10.2)
+        .fromTo("#photoInputFrame", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: "power2.out" }, 10.4)
+        .fromTo("#scanline", { y: 0 }, { y: 476, duration: 1.6, ease: "power1.inOut" }, 10.6)
+        .fromTo("#photoTwinFrame", { opacity: 0, x: 60, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.3)" }, 11.4)
+        .to("#scene4", { opacity: 0, duration: 0.35, ease: "power2.in" }, 14.0);
 
-      // --- SCENE 5: DEMO 3 - 100-LEVEL CAMPAIGN GAME (16.2s - 19.5s) ---
-      tl.fromTo("#scene5", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 16.2)
-        .fromTo("#btnEarth", { scale: 1 }, { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 17.2)
-        .to("#scene5", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 19.0);
+      // --- SCENE 5: EXPANDED DEMO 3 - 100-LEVEL CAMPAIGN GAME (14.2s - 20.0s) ---
+      tl.fromTo("#scene5", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 14.2)
+        .fromTo("#gameBox", { y: 30 }, { y: 0, duration: 0.5, ease: "power2.out" }, 14.4)
+        // User clicks Earth at 16.5s:
+        .to("#btnEarth", { 
+          backgroundColor: "rgba(106, 168, 255, 0.35)", 
+          borderColor: "#6aa8ff", 
+          color: "#6aa8ff",
+          boxShadow: "0 0 30px rgba(106, 168, 255, 0.6)",
+          scale: 1.04, 
+          duration: 0.2 
+        }, 16.5)
+        // True color reveal: image bursts from B&W to full color!
+        .to("#gameTerrainImg", { filter: "grayscale(0%) contrast(1.05)", scale: 1.03, duration: 0.6, ease: "power2.out" }, 16.7)
+        .to("#gameModeTag", { opacity: 0, duration: 0.3 }, 16.7)
+        .to("#streakVal", { innerText: "×2.0 (MAX)", color: "#6aa8ff", duration: 0.3 }, 16.7)
+        // Victory banner appears:
+        .fromTo("#gameVictoryBanner", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 16.8)
+        .to("#scene5", { opacity: 0, scale: 1.04, duration: 0.35, ease: "power2.in" }, 19.6);
 
-      // --- SCENE 6: OUTRO & CTA (19.2s - 22.0s) ---
-      tl.fromTo("#scene6", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 19.2)
-        .fromTo("#ctaBox", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 19.8);
+      // --- SCENE 6: OUTRO & CTA (19.8s - 24.0s) ---
+      tl.fromTo("#scene6", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 19.8)
+        .fromTo("#ctaBox", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 20.3);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["main"] = tl;
