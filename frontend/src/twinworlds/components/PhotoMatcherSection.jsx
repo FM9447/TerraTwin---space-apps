@@ -1,33 +1,41 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { API_BASE } from '../content';
+import { API_BASE, assetUrl } from '../content';
 
 const SAMPLES = [
   {
     id: 'sample_crater',
-    label: 'Impact Crater Rim',
-    type: 'Basin',
-    url: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+    label: 'Barringer Meteor Crater',
+    location: 'Arizona, USA',
+    type: 'Impact Basin',
+    asset: 'meteor-crater',
+    url: assetUrl('meteor-crater'),
     features: { roughness: 0.85, brightness: 0.45, crater: 0.95, volcanic: 0.85, cryo: 0.1, dune: 0.1 }
   },
   {
     id: 'sample_basalt',
-    label: 'Basaltic Lava Flow',
-    type: 'Volcanic',
-    url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    label: 'Craters of the Moon',
+    location: 'Idaho, USA',
+    type: 'Basaltic Lava Flow',
+    asset: 'craters-moon',
+    url: assetUrl('craters-moon'),
     features: { roughness: 0.90, brightness: 0.35, crater: 0.25, volcanic: 0.98, cryo: 0.05, dune: 0.05 }
   },
   {
     id: 'sample_cryo',
-    label: 'Polar Cryo-Permafrost',
-    type: 'Ice & Cold',
-    url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    label: 'McMurdo Dry Valleys',
+    location: 'Victoria Land, Antarctica',
+    type: 'Polar Permafrost',
+    asset: 'mcmurdo',
+    url: assetUrl('mcmurdo'),
     features: { roughness: 0.72, brightness: 0.85, crater: 0.20, volcanic: 0.15, cryo: 0.95, dune: 0.15 }
   },
   {
     id: 'sample_dunes',
-    label: 'Aeolian Sand Dunes',
-    type: 'Wind-blown',
-    url: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
+    label: 'Wadi Rum Aeolian Desert',
+    location: 'Aqaba, Jordan',
+    type: 'Aeolian Dune Field',
+    asset: 'wadi-rum',
+    url: assetUrl('wadi-rum'),
     features: { roughness: 0.45, brightness: 0.65, crater: 0.15, volcanic: 0.45, cryo: 0.05, dune: 0.92 }
   }
 ];
@@ -48,7 +56,7 @@ export default function PhotoMatcherSection() {
   const [matchData, setMatchData] = useState(null);
   const [scanning, setScanning] = useState(false);
 
-  const activeImageUrl = customImage || selectedSample.url;
+  const activeImageUrl = customImage || selectedSample.url || (selectedSample.asset ? assetUrl(selectedSample.asset) : '');
 
   const runMatch = useCallback(async (currentFeatures, destination) => {
     setLoading(true);
@@ -266,7 +274,7 @@ export default function PhotoMatcherSection() {
                   }}
                 >
                   <div style={{ color: 'var(--text)', fontWeight: 500 }}>{sample.label}</div>
-                  <div style={{ fontSize: 'var(--text-micro)', color: 'var(--faint)' }}>{sample.type}</div>
+                  <div style={{ fontSize: 'var(--text-micro)', color: 'var(--faint)' }}>{sample.location ? `${sample.location} · ` : ''}{sample.type}</div>
                 </button>
               ))}
             </div>
@@ -314,9 +322,19 @@ export default function PhotoMatcherSection() {
                 border: '1px solid var(--line)'
               }}>
                 <img
-                  src={primaryMatch.image}
+                  src={
+                    primaryMatch.image
+                      ? (primaryMatch.image.startsWith('http://') || primaryMatch.image.startsWith('https://') || primaryMatch.image.startsWith('data:')
+                          ? primaryMatch.image
+                          : `${API_BASE}${primaryMatch.image}`)
+                      : assetUrl(primaryMatch.type === 'mars' ? 'mars-disc' : primaryMatch.type === 'moon' ? 'moon-disc' : 'earth-disc')
+                  }
                   alt={primaryMatch.name}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = assetUrl(primaryMatch.type === 'mars' ? 'mars-disc' : primaryMatch.type === 'moon' ? 'moon-disc' : 'earth-disc');
+                  }}
                 />
                 <div style={{
                   position: 'absolute',

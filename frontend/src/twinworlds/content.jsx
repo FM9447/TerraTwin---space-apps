@@ -363,12 +363,72 @@ export const COMPARISONS = [
 ];
 
 export const LOOKALIKES = [
-  { id: 'bardenas', asset: 'bardenas', alt: 'Eroded badlands of Bardenas Reales, Spain', title: 'Bardenas Reales', meta: 'Spain · eroded badlands' },
-  { id: 'goblin', asset: 'goblin', alt: 'Hoodoo rock formations in Goblin Valley, Utah', title: 'Goblin Valley', meta: 'Utah, USA · hoodoos' },
-  { id: 'sarakiniko', asset: 'sarakiniko', alt: 'White volcanic rock at Sarakiniko, Milos, Greece', title: 'Sarakiniko', meta: 'Milos, Greece · white volcanic rock' },
-  { id: 'pinnacles', asset: 'pinnacles', alt: 'Limestone pillars in the Pinnacles Desert, Western Australia', title: 'The Pinnacles', meta: 'Western Australia · limestone pillars' },
-  { id: 'rummu', asset: 'rummu', alt: 'The flooded Rummu quarry in Estonia', title: 'Rummu Quarry', meta: 'Estonia · flooded limestone quarry' },
-  { id: 'spotted-lake', asset: 'spotted-lake', alt: 'Mineral pools of Spotted Lake, Canada', title: 'Spotted Lake', meta: 'British Columbia, Canada · mineral pools' }
+  {
+    id: 'bardenas',
+    asset: 'bardenas',
+    alt: 'Eroded badlands of Bardenas Reales, Spain',
+    title: 'Bardenas Reales',
+    location: 'Navarra, Spain',
+    meta: 'Spain · sculpted clay & sandstone',
+    twinPlanet: 'Mars',
+    twinFeature: 'Mount Sharp Buttes & Yardangs',
+    description: 'Wind-sculpted clay and sandstone towers mirroring the layered sedimentary yardangs of Mount Sharp in Gale Crater, Mars.'
+  },
+  {
+    id: 'goblin',
+    asset: 'goblin',
+    alt: 'Hoodoo rock formations in Goblin Valley, Utah',
+    title: 'Goblin Valley',
+    location: 'Utah, USA',
+    meta: 'Utah, USA · Entrada sandstone hoodoos',
+    twinPlanet: 'Mars',
+    twinFeature: 'Sedimentary Concretions & Yardangs',
+    description: 'Thousands of wind-hollowed sandstone hoodoos that mirror the strange wind-abraded bedrock concretions found across the Martian surface.'
+  },
+  {
+    id: 'sarakiniko',
+    asset: 'sarakiniko',
+    alt: 'White volcanic rock at Sarakiniko, Milos, Greece',
+    title: 'Sarakiniko',
+    location: 'Milos, Greece',
+    meta: 'Milos, Greece · white volcanic tuff',
+    twinPlanet: 'Moon',
+    twinFeature: 'Lunar Highland Anorthosite Regolith',
+    description: 'Chalk-white wave-eroded volcanic tuff creating an eerie, shadow-swept landscape strikingly evocative of the airless Lunar Highlands.'
+  },
+  {
+    id: 'pinnacles',
+    asset: 'pinnacles',
+    alt: 'Limestone pillars in the Pinnacles Desert, Western Australia',
+    title: 'The Pinnacles',
+    location: 'Western Australia',
+    meta: 'Western Australia · calcarenite limestone pillars',
+    twinPlanet: 'Mars',
+    twinFeature: 'Exhumed Mineral Spires & Dunes',
+    description: 'Thousands of calcarenite limestone pillars rising out of yellow shifting sand dunes, resembling exhumed mineral pillars in dried Martian paleolakes.'
+  },
+  {
+    id: 'dallol',
+    asset: 'dallol',
+    alt: 'Vivid hydrothermal sulfur terraces and salt chimneys at Dallol, Ethiopia',
+    title: 'Dallol Hydrothermal Vents',
+    location: 'Danakil, Ethiopia',
+    meta: 'Danakil Depression, Ethiopia · sulfur & iron brine crusts',
+    twinPlanet: 'Mars',
+    twinFeature: 'Noachian Hydrothermal Hot Springs',
+    description: 'Hyperacidic sulfur ponds and vivid brine crusts replicating the volcanic-hydrothermal environments of ancient Noachian Mars.'
+  },
+  {
+    id: 'spotted-lake',
+    asset: 'spotted-lake',
+    alt: 'Mineral pools of Spotted Lake, Canada',
+    title: 'Spotted Lake',
+    location: 'British Columbia, Canada',
+    meta: 'British Columbia, Canada · sulfate brine circles',
+    twinPlanet: 'Mars',
+    twinFeature: 'Desiccated Saline Evaporite Basins',
+    description: 'Hundreds of mineralized circular brine pools enriched with magnesium sulfate, mirroring dried evaporite rings in Martian craters.'
+  }
 ];
 
 export const GALLERY_ITEMS = [
