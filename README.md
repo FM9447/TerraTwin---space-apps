@@ -3,14 +3,42 @@
 **Earth–Moon–Mars Planetary Analog Discovery & Scientific Intelligence Platform**  
 *Built for the NASA Space Apps Challenge: **"Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars"***
 
-> 🚀 **Live Production Application**: [https://terratwin.vercel.app](https://terratwin.vercel.app) (also mirrored at [frontend-nine-livid-46.vercel.app](https://frontend-nine-livid-46.vercel.app))  
+> 🚀 **Live Production Application**: [https://frontend-nine-livid-46.vercel.app](https://frontend-nine-livid-46.vercel.app) (Mirror: [terratwin.vercel.app](https://terratwin.vercel.app))  
 > 🛰️ **Live Backend REST API**: [https://backend-one-brown-46.vercel.app/api/health](https://backend-one-brown-46.vercel.app/api/health)  
-> 🎬 **Launch & Demo Video**: [brag-output/brag.mp4](brag-output/brag.mp4) (Built with [/brag](https://github.com/latent-spaces/brag))  
+> 📽️ **Project Demo & Pitch Deck**: [Jump to Demo & Presentation](#project-demo)  
+> 🎬 **Demo Video**: [brag-output/brag.mp4](brag-output/brag.mp4)  
 > 🗄️ **Database**: MongoDB Atlas Cluster (Connected with 2dsphere indexing & GridFS)
 
 <p align="center">
   <img src="brag-output/demo.gif" alt="TerraTwin Launch & Demo Preview" width="100%" style="border-radius: 8px;" />
 </p>
+
+---
+
+<div id="project-demo"></div>
+
+## 📽️ Project Demo & Slide Presentation
+
+### 1. 🚀 Live Workstation & Interactive Prototype
+- **Live Production URL**: [https://frontend-nine-livid-46.vercel.app](https://frontend-nine-livid-46.vercel.app)
+- **Backend API & Health**: [https://backend-one-brown-46.vercel.app/api/health](https://backend-one-brown-46.vercel.app/api/health)
+- **Demo Walkthrough Video**: [Watch Demo Video (MP4)](brag-output/brag.mp4)
+
+---
+
+### 2. 📊 7-Slide Pitch Deck Summary (NASA Space Apps Standards)
+
+| Slide | Topic | Key Content & Scientific Substance |
+| :---: | :--- | :--- |
+| **Slide 1** | **Title & Team** | **TerraTwin**: Planetary Analog Discovery & Scientific Intelligence Workstation.<br>• *Challenge*: NASA Space Apps 2026: *"Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars"* |
+| **Slide 2** | **The Deep Space Challenge** | Deep-space hardware, rovers, and human crews require rigorous terrestrial field testing before deployment. Prior terrestrial analog cataloging was subjective, static, and fragmented without multi-variable quantification. |
+| **Slide 3** | **100% NASA Scientific Datasets** | Ingests verified NASA DAAC & PDS data:<br>• **NASADEM_HGT v001** (30m elevation/slope)<br>• **MODIS MOD11A2 v061** (1km Land Surface Temperature $\Delta T$)<br>• **ASTER GED AG100 v003** (100m basalt/silicate emissivity)<br>• **GPM IMERG v07** (hyper-aridity precipitation)<br>• **LRO LOLA & Diviner** (Lunar polar cold-traps) / **MGS MOLA** (Martian terrain) |
+| **Slide 4** | **The Scientific Similarity Trio** | Replaces deceptive single-score metrics with independent mathematical indicators:<br>1. **Overall Similarity ($S_{overall}$)**: Weighted hybrid Euclidean decay.<br>2. **Data Coverage %**: Spatial completeness of active NASA sensors.<br>3. **Data Confidence %**: Sensor resolution, radiometric QA flags & field validation. |
+| **Slide 5** | **Flagship System Capabilities** | • **Dual-World 3D Compare**: Side-by-side Earth vs Moon/Mars interactive WebGL globes.<br>• **Inverse Parametric Discovery**: Multi-variable spatial queries on MongoDB `2dsphere` index.<br>• **Visual Photo Twin Matcher**: Image-based morphological terrain feature matching via GridFS. |
+| **Slide 6** | **Scientific Honesty & Boundary Physics** | Explicitly documents where Earth analogies break down:<br>• *Atmosphere*: Earth 101.3 kPa vs Mars 0.6 kPa vs Moon vacuum.<br>• *Radiation*: Earth magnetosphere/ozone vs cosmic ray flux.<br>• *Gravity*: Earth 1.0g vs Moon 0.16g vs Mars 0.38g. |
+| **Slide 7** | **Future Vision & Roadmap** | Phase II: Integration of hyperspectral orbital feeds, automated analog traversal pathfinding for Artemis rover mission planning, and expansion to icy ocean moons (Titan, Europa). |
+
+> 📁 *The original presentation slide deck file is maintained under [`docs/presentation/`](docs/presentation/).*
 
 ---
 
