@@ -31,130 +31,55 @@ Any agent working on this repository **MUST** obey these inviolable rules:
 
 ### Backend Architecture (`backend/`)
 - **Framework**: Express.js with modular layered architecture (`src/config/`, `src/middleware/`, `src/controllers/`, `src/routes/`, `src/models/`, `src/db/`).
-- **Middleware**:
-  - `requestLogger.js`: Latency tracking and HTTP status reporting.
-  - `validator.js`: Enforces coordinate limits (lat: -90..+90, lon: -180..+180) and GeoJSON polygon structure.
-  - `errorHandler.js`: Standardized JSON error response format.
-- **Database (MongoDB Atlas)**:
-  - Live connection active to cluster `cluster0.3ohbt20.mongodb.net/terratwin`.
-  - Mongoose models:
-    - `Analog.js`: 8 Earth analog sites with GeoJSON coordinates and `2dsphere` index.
-    - `GameLevel.js`: 100 calibrated levels across 4 difficulty tiers (*Novice*, *Explorer*, *Specialist*, *Commander*).
-    - `PlanetaryTarget.js`: Moon Artemis South Pole, Shackleton Rim, Mars Jezero, Gale, Olympus Mons.
-    - `NasaDataset.js`: 10 verified NASA DAAC and PDS datasets.
-  - Automated seeder: `npm run seed` runs clean insertion with zero duplicates.
-- **Active Endpoints**:
-  - `GET /api/health`: Database connection status and record counts.
-  - `GET /api/nasa-datasets`: 100% NASA catalog and DOIs.
-  - `GET /api/targets`: Lunar & Martian target signatures.
-  - `GET /api/mission-profiles`: 4 PRD mission profiles (Permanent Base, Robotic Landing, Surface Exploration, Habitability).
-  - `POST /api/analog/search`: Parametric slider discovery ($S_{overall}$ formula).
-  - `GET /api/analog/nearby`: MongoDB `$near` 2dsphere spatial radius query.
-  - `POST /api/analog/within-polygon`: MongoDB `$geoWithin` boundary query.
-  - `POST /api/analog/image-match`: 5D visual Euclidean photo similarity matcher.
-  - `GET /api/game/levels`: Paginated 100 levels with difficulty tier filters.
-  - `POST /api/game/guess`: Evaluates guess (`earth_analog`, `moon`, `mars`) and reveals full-color photo + NASA rationale.
+- **Database (MongoDB Atlas)**: Live on `cluster0.3ohbt20.mongodb.net/terratwin` with seeded NASA datasets, targets, 8 analogs, and 100 game levels.
+- **Active Endpoints**: `/api/health`, `/api/nasa-datasets`, `/api/targets`, `/api/mission-profiles`, `/api/analog/search`, `/api/analog/nearby`, `/api/analog/within-polygon`, `/api/analog/image-match`, `/api/game/levels`, `/api/game/guess`.
 - **Testing**: Native test runner `npm test` runs 4 test suites with **100% pass rate**.
 
----
-
-## 🌐 3. Frontend Architecture & Complete Integration Status (`twin-worlds`)
-
-The team's frontend repository (**[AFarHitman7/twin-worlds](https://github.com/AFarHitman7/twin-worlds)**) is now **fully integrated and compiled** into `frontend/src/` alongside the NASA scientific workstation:
-
-### Verified Component Structure:
-- **`src/pages/AtlasPage.jsx`**: Interactive Three.js globe with 18 Earth analog pins, live telemetry status pill (`● MongoDB Atlas Active` / `Local Telemetry`), and parametric rubric.
-- **`src/pages/GamePage.jsx`**: Dual-mode simulator featuring:
-  - *Signal Test Mode*: Curated 12-frame high-resolution blind reconnaissance test.
-  - *NASA 100-Level Deep Space Arena*: Integrated `CosmicGameView` dynamically communicating with `/api/game/levels` and `/api/game/guess`, complete with 4 difficulty tiers (*Novice*, *Explorer*, *Specialist*, *Commander*), streak multipliers, confetti, and scientific rationales.
-- **`src/pages/WorkstationPage.jsx`**: Full-screen workstation hosting:
-  - *Parametric Discovery*: PRD Section 8 hybrid similarity scoring ($S_{overall}$), weight modifiers, and 8 NASA parameters.
-  - *Visual Photo Matcher*: 5D Euclidean photo similarity engine with sample presets and custom photo uploads.
-  - *Planetary Explorer*: Lunar & Martian target dossiers (Jezero, Shackleton, Gale, Olympus Mons).
-  - *NASA Catalog & PRD*: All 10 NASA DAAC/PDS datasets with DOIs, spatial extents, and mission profiles.
-- **`src/components/sections/Compare.jsx`**: Side-by-side interactive twin scanner with direct link to the Visual Photo Matcher.
-- **Build Status**: `npm run build` succeeds cleanly with zero bundle errors across Vite 5 and React 18.
+### Frontend Architecture (`frontend/`)
+- **Three.js Atlas Globe**: Interactive 3D Earth globe with 18 pins, dynamic fly-to, and scientific dossiers.
+- **Reconnaissance Game**: 100 levels across 4 difficulty tiers (*Novice, Explorer, Specialist, Commander*).
+- **Workstation View**: Integrated PRD parametric discovery, 5D visual photo similarity matcher, and full NASA dataset catalog.
+- **Build Status**: `npm run build` succeeds cleanly with **0 bundling errors**.
 
 ---
 
-## 💰 4. Credit Conservation & Multi-Agent Strategy
+## 💰 3. Verified $0-Credit Development Stack
 
-### ⚠️ Multi-Agent Warning & Anti-Redundancy Directive
-Running multiple autonomous subagents in parallel consumes **3x to 5x more tokens**. 
-**Inviolable Rule**: Always check `git status --porcelain` and existing file contents first. If code, levels, or tests are already implemented and passing, **DO NOT re-generate or re-write them**.
+All API keys are securely housed locally in `~/.env.ai-keys` (`chmod 600`) and strictly excluded from Git:
 
-### 🛡️ Recommended Credit-Saving Protocol:
-1. **Tiered Model Routing**:
-   - **Orchestrator Agent**: Use `Gemini 3.8 Flash (High)` for planning, PRD scientific calculations, and architecture review.
-   - **Local RTX 3050 ($0 Cost)**: Use Ollama with `qwen2.5-coder:7b` (or `3b`) on the 6GB VRAM for boilerplate, routine refactoring, and test authoring.
-   - **Approved Free Cloud Tiers**: GitHub Models (`https://models.inference.ai.azure.com`), Cerebras Cloud, NVIDIA NIM (`build.nvidia.com`), Mistral AI.
-   - *(Note: Together AI and Groq are explicitly excluded).*
-2. **Tool Governance**: Follow [AGENT_GOVERNANCE_ROUTER.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/AGENT_GOVERNANCE_ROUTER.md) for GSD, Roo Code, Ralph (max 3 loops), and CodeRabbit pre-commit checks.
-
----
-
-## 🧰 5. Recommended Agent Skills from GitHub
-
-Install these open skills via `npx skills add <repo@skill>`:
-
-| Skill | Source | Why It Matters for TerraTwin |
-| :--- | :--- | :--- |
-| **`mongodb-query-optimizer`** | `mongodb/agent-skills` | Optimizes `2dsphere` indexes, compound spatial queries, and aggregation pipelines on MongoDB Atlas. |
-| **`threejs-spatial-data`** | `cesartevisual/threejs-skills` | Converts GPS `[lat, lon]` into 3D Cartesian `(x, y, z)` vectors on rotating Three.js spheres. |
-| **`threejs-performance`** | `cloudai-x/threejs-skills` | Prevents WebGL memory leaks by disposing geometries, textures, and requestAnimationFrame loops. |
-| **`web-design-guidelines`** | `vercel-labs/agent-skills` | Enforces accessible typography, high-contrast dark mode, and smooth CSS transitions. |
-| **`token-conservation`** | Local / Built-in | Restricts verbose dumps and keeps responses dense and actionable. |
+| Provider | Model / Tier | Cost & Status | Role |
+| :--- | :--- | :--- | :--- |
+| **Local RTX 3050 (Ollama)** | `qwen2.5-coder:7b` | **$0.00 Forever** | Running locally in 6GB VRAM at ~35 tok/s, 100% offline, zero rate limits. |
+| **Cloudflare Workers AI** | `@cf/meta/llama-3.1-8b-instruct` | **$0.00 Free Daily** | 10,000 neurons free/day (~35k calls/day). Leave IP filter blank for any network. |
+| **Cerebras Cloud** | `qwen-3.8-27b` | **$0.00 Free Trial** | 9ms ultra-fast inference. Auto-recharge is OFF, so zero card charges. |
+| **NVIDIA NIM** | `deepseek-coder-6.7b`, `codestral-22b` | **$0.00 One-Time** | 1,000 free API calls on registration. No card on file. |
+| **GitHub Models** | `gpt-4o-mini`, `claude-3-5-sonnet` | **$0.00 Daily** | Prototyping quota via GitHub PAT. |
+| **Gemini 3.8 Flash** | Cloud Orchestrator | **Included** | High-level PRD mathematics and architectural audits. |
 
 ---
 
-## 📋 6. Immediate Next Tasks (Roadmap)
+## 🛑 4. Anti-Redundancy & Tool Governance Matrix
 
-1. **Remount Drive D to Read-Write**:
-   ```bash
-   sudo ntfsfix /dev/nvme0n1p5 && sudo mount -o remount,rw /media/fm9447/D
-   ```
-2. **Merge `twin-worlds` Frontend**:
-   - Merge `twin-worlds/src` into `TerraTwin/frontend/src`.
-   - Update API fetch URLs to call `http://localhost:8000/api/*`.
-3. **Connect Atlas to MongoDB**:
-   - Enable real-time coordinate lookup and polygon bounding boxes on the Three.js globe.
-4. **Scale Game to 100 Levels**:
-   - Wire `GamePage.jsx` to fetch levels dynamically from `/api/game/levels`.
-5. **Verify Pre-Commit**:
-   - Backend: `cd backend && npm test` (100% pass).
-   - Frontend: `cd frontend && npm run build` (0 bundling errors).
-   - Commit and push to `FM9447/TerraTwin---space-apps`.
+1. **State Check Before Action**: Always check `git status --porcelain` and existing files first. If code, levels, or tests are already implemented and passing, **DO NOT re-generate or re-write them**.
+2. **Tool Matrix**: Follow [`AGENT_GOVERNANCE_ROUTER.md`](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/AGENT_GOVERNANCE_ROUTER.md):
+   - **GSD**: Max 3 file reads during research.
+   - **Roo Code**: Enforce Architect ➔ Coder ➔ Reviewer separation.
+   - **Ralph**: Hard cap of **maximum 3 test-and-fix iterations**.
+   - **CodeRabbit**: Single-pass pre-commit audit.
 
 ---
 
-## 💬 7. Copy-Pasteable Prompt for ANY AI Platform / Agent
+## 💬 5. Copy-Pasteable Prompt for ANY AI Platform / Agent
 
-Copy and paste the exact prompt below into **Cursor, Windsurf, Claude Code, GitHub Copilot, Gemini CLI, or a new Antigravity session**:
+Copy and paste the prompt below into **Cursor, Windsurf, Claude Code, GitHub Copilot, or the other Antigravity chat**:
 
 ```markdown
-You are an expert AI software engineer and planetary GIS specialist working on TerraTwin for the NASA International Space Apps Challenge ("Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars").
+You are an expert AI software engineer working on TerraTwin for the NASA International Space Apps Challenge.
+Review AGENTS.md, AGENT_HANDOVER.md, and AGENT_GOVERNANCE_ROUTER.md.
 
-Please review the architectural blueprint in AGENTS.md and the PRD (planetary_analog_discovery_prd.docx).
-
-CORE RULES YOU MUST FOLLOW:
-1. 100% NASA Scientific Datasets Only: Sourced strictly from NASA LP DAAC (NASADEM, MODIS LST, ASTER GED), NASA GES DISC (GPM IMERG), NASA SEDAC (GPWv4), and NASA PDS Geosciences (LRO LOLA/Diviner, MRO HiRISE/CRISM, MGS MOLA). No non-NASA datasets or synthetic figures.
-2. PRD Scientific Similarity Framework: Compute weighted similarity S_overall = sum(w_i * S_i) / sum(w_i) and report the Trio of Independent Metrics (Similarity %, Data Coverage %, Data Confidence %). Always explain where the analogy breaks down (atmosphere, UV shield, gravity).
-3. Stack Boundaries:
-   - Backend: Node.js (Express), MongoDB Atlas (Mongoose ODM with GeoJSON Point [lon, lat] and 2dsphere indexing).
-   - Frontend: React (Vite, Three.js WebGL globe, CSS Modules/Tailwind), based on https://github.com/AFarHitman7/twin-worlds.
-   - Model: Reserved and kept blank for Phase II.
-4. Credit Optimization: Be concise, do not dump entire files unnecessarily. If delegating to subagents, use lightweight models (flash_lite) or local Ollama (qwen2.5-coder:7b on RTX 3050 6GB VRAM) to conserve credits.
-
-CURRENT PROJECT STATUS:
-- Backend: Production-ready MVC with controllers, routes, middleware, Mongoose models, and passing automated test suite (npm test).
-- Database: Live on MongoDB Atlas cluster (cluster0.3ohbt20.mongodb.net/terratwin) with seeded NASA datasets, targets, 8 analogs, and 100 game levels.
-- Frontend: Standalone frontend exists at https://github.com/AFarHitman7/twin-worlds (Three.js globe with 18 pins, 12-round reconnaissance game).
-
-YOUR TASK:
-1. Integrate the twin-worlds frontend with the TerraTwin backend REST API:
-   - Wire the Atlas Three.js globe to query dynamic analogs from /api/analog/search and /api/analog/nearby.
-   - Upgrade the Signal Test game from 12 rounds to the 100 levels served by /api/game/levels across 4 difficulty tiers.
-   - Integrate the visual photo similarity matcher (/api/analog/image-match) into the compare section.
-2. Verify all backend tests pass (npm test) and frontend builds cleanly (npm run build).
-3. Commit and push all updates to https://github.com/FM9447/TerraTwin---space-apps.
+CURRENT STATUS:
+- Backend: Production-ready MVC, MongoDB Atlas live with 100 game levels & 8 analogs. All tests pass (npm test).
+- Frontend: Three.js Atlas globe, 100-level reconnaissance game, and workstation are integrated and building cleanly (npm run build).
+- Local $0 Stack: Local Ollama (qwen2.5-coder:7b on RTX 3050), Cloudflare Workers AI, Cerebras Cloud, and NVIDIA NIM are configured in ~/.env.ai-keys.
+- Anti-Redundancy: Always verify git status before executing; never rewrite passing code.
 ```
