@@ -3,6 +3,10 @@
 **Earth–Moon–Mars Planetary Analog Discovery & Scientific Intelligence Platform**  
 *Built for the NASA Space Apps Challenge: **"Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars"***
 
+> 🚀 **Live Production Application**: [https://frontend-nine-livid-46.vercel.app](https://frontend-nine-livid-46.vercel.app)  
+> 🛰️ **Live Backend REST API**: [https://backend-one-brown-46.vercel.app/api/health](https://backend-one-brown-46.vercel.app/api/health)  
+> 🗄️ **Database**: MongoDB Atlas Cluster (Connected with 2dsphere indexing & GridFS)
+
 ---
 
 ## 🛰️ Executive Summary & PRD Alignment
@@ -35,10 +39,19 @@ Altered in strict accordance with the product requirements in `planetary_analog_
 - **Star gating**: each level awards 3★ / 2★ / 1★ or fails. One star unlocks the next level; failed runs can be replayed.
 - **Local progression**: cleared levels, stars, best scores and career totals are cached in `localStorage` (`terratwin.game.progress.v2`), so returning players resume at their highest unlocked level.
 
-### 3. 🔬 Scientific Discovery API
-- The NASA multi-criteria similarity engine (PRD Section 8) and the visual photo matcher remain available as REST endpoints (`/api/analog/...`, `/api/datasets`, `/api/targets`) and are covered by the test suite.
+### 3. 📸 Visual Photo Twin Scanner (`#scanner`)
+- **Scan any photo for its planetary twin**: Upload custom landscape photography or choose NASA mission reference presets (*Impact Crater Rim*, *Basaltic Lava Flow*, *Polar Cryo-Permafrost*, *Aeolian Dunes*).
+- **Destination targeting**: Toggle between `Mars Twins`, `Moon Twins`, and `Earth Analogues`.
+- **Morphological feature extraction**: Computes 6D visual distances across surface roughness, impact crater rims, tholeiitic basalt texture, and polygonal ground ice.
+- **Scientific alignment**: Returns the closest matching planetary location with coordinates, similarity %, and morphological rationale.
 
-### 4. 🗄️ MongoDB-First Media
+### 4. 🧭 Parametric Geo-Environmental Analog Finder (`#finder`)
+- **Inverse analog modeling**: Input custom geography (terrain roughness, relief delta, slope) and environmental parameters (hyper-aridity, thermal swing $\Delta T$, basalt fraction, operational remoteness).
+- **PRD Section 8 hybrid similarity formula**: Computes $S_{overall} = \frac{\sum w_i S_i}{\sum w_i}$ against verified NASA DAAC/PDS datasets (`NASADEM`, `MODIS LST`, `ASTER GED`, `GPM IMERG`, `SEDAC GPWv4`).
+- **The Trio of Independent Metrics**: Reports Similarity %, Data Coverage %, and Data Confidence %.
+- **Scientific honesty notice**: Documents critical operational deviations (101 kPa Earth atmosphere vs Mars 0.6 kPa / Moon vacuum; 1g vs 0.16g Moon / 0.38g Mars).
+
+### 5. 🗄️ MongoDB-First Media & GridFS Streaming
 - Game photography lives in the `gameimages` GridFS bucket and editorial imagery in `siteassets`. Moving from the local Docker database to the production Atlas cluster only requires changing `MONGODB_URI`.
 
 ---

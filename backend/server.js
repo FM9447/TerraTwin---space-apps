@@ -59,7 +59,11 @@ async function handleShutdown(signal) {
 process.on('SIGINT', () => handleShutdown('SIGINT'));
 process.on('SIGTERM', () => handleShutdown('SIGTERM'));
 
-bootstrap().catch((err) => {
-  console.error('❌ Failed to bootstrap backend application:', err);
-  process.exit(1);
-});
+if (!process.env.VERCEL) {
+  bootstrap().catch((err) => {
+    console.error('❌ Failed to bootstrap backend application:', err);
+    process.exit(1);
+  });
+}
+
+export default app;

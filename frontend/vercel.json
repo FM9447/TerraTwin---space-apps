@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://backend-one-brown-46.vercel.app/api/:path*"
+    }
+  ]
+}

@@ -6,6 +6,9 @@ dotenv.config();
 let isConnected = false;
 
 export async function connectDB() {
+  if (mongoose.connection && mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
   if (isConnected) {
     return mongoose.connection;
   }
