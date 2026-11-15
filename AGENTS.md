@@ -39,6 +39,9 @@ Any AI agent interacting with this repository **MUST** adhere strictly to the fo
 
 ### 4. Anti-Redundancy & Mandatory Hybrid Offloading Directive
 - **State Check Before Action**: Always inspect `git status --porcelain` and database state before executing. If a file, level, seed, or test is already verified and up-to-date, **DO NOT re-generate or re-write it**.
+- **Strict On-Demand Document Access (Zero Speculative Reads)**:
+  - NEVER read documentation files, PRDs, or long guides unless specifically asked by the user.
+  - When inspecting code files, NEVER dump whole files. Always use `grep` or scoped `read_file` (<50 lines).
 - **MANDATORY $0 Execution Offload (Inviolable across ALL chats)**:
   - NEVER generate more than 20 lines of code, boilerplate, test files, or large component blocks directly inside the cloud model's chat output.
   - Whenever generating or editing files, the agent MUST run:
