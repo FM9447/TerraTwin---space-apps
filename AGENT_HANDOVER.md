@@ -74,20 +74,17 @@ The team's latest frontend repository is at **[https://github.com/AFarHitman7/tw
 
 ## 💰 4. Credit Conservation & Multi-Agent Strategy
 
-### ⚠️ Multi-Agent Warning
-Running multiple autonomous subagents in parallel consumes **3x to 5x more tokens** because each subagent carries its own context window, system prompt, and tool-execution iterations.
+### ⚠️ Multi-Agent Warning & Anti-Redundancy Directive
+Running multiple autonomous subagents in parallel consumes **3x to 5x more tokens**. 
+**Inviolable Rule**: Always check `git status --porcelain` and existing file contents first. If code, levels, or tests are already implemented and passing, **DO NOT re-generate or re-write them**.
 
 ### 🛡️ Recommended Credit-Saving Protocol:
-1. **Model Assignment Hierarchy**:
-   - **Orchestrator Agent**: Use `Gemini 3.8 Flash` or `Claude 3.5 Sonnet` for planning and architecture review.
-   - **Worker Subagents**: If subagents are spawned, assign them to `flash_lite` (10x cheaper) for reading files, linting, and running builds.
-2. **Local GPU Offloading ($0 Cost)**:
-   - Your machine has an **NVIDIA GeForce RTX 3050 Laptop GPU (6 GB VRAM)** with **Ollama** installed.
-   - Run **`qwen2.5-coder:7b`** locally via Ollama:
-     ```bash
-     ollama run qwen2.5-coder:7b
-     ```
-   - It runs at **~40 tokens/sec** directly inside your 6GB VRAM. Use it for routine refactoring, regex, test authoring, and documentation generation with **$0 API credit cost**.
+1. **Tiered Model Routing**:
+   - **Orchestrator Agent**: Use `Gemini 3.8 Flash (High)` for planning, PRD scientific calculations, and architecture review.
+   - **Local RTX 3050 ($0 Cost)**: Use Ollama with `qwen2.5-coder:7b` (or `3b`) on the 6GB VRAM for boilerplate, routine refactoring, and test authoring.
+   - **Approved Free Cloud Tiers**: GitHub Models (`https://models.inference.ai.azure.com`), Cerebras Cloud, NVIDIA NIM (`build.nvidia.com`), Mistral AI.
+   - *(Note: Together AI and Groq are explicitly excluded).*
+2. **Tool Governance**: Follow [AGENT_GOVERNANCE_ROUTER.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/AGENT_GOVERNANCE_ROUTER.md) for GSD, Roo Code, Ralph (max 3 loops), and CodeRabbit pre-commit checks.
 
 ---
 

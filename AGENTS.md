@@ -37,6 +37,11 @@ Any AI agent interacting with this repository **MUST** adhere strictly to the fo
 - **Frontend (`/frontend`)**: React.js (React 18), Vite 5, Tailwind CSS, Lucide React, Three.js (WebGL).
 - **Models (`/model`)**: **LEFT BLANK / RESERVED**. Do NOT generate random Python ML models or dummy weights in `/model` unless explicitly requested by the user.
 
+### 4. Anti-Redundancy & Zero-Waste Execution Directive
+- **State Check Before Action**: Always inspect `git status --porcelain` and database state before executing. If a file, level, seed, or test is already verified and up-to-date, **DO NOT re-generate or re-write it**.
+- **Tiered Model Routing**: Offload routine code tasks to Local RTX 3050 (Ollama `qwen2.5-coder`) or approved free tiers (GitHub Models, Cerebras, NVIDIA NIM, Mistral). Use Gemini 3.8 Flash strictly as Architect/Reviewer. (Together AI and Groq are excluded).
+- **Tool Governance**: Follow [AGENT_GOVERNANCE_ROUTER.md](file:///media/fm9447/D/MULearn/TerraTwin%20-%20Space%20Apps/AGENT_GOVERNANCE_ROUTER.md) for GSD, Roo Code, Ralph (max 3 loops), and CodeRabbit pre-commit checks.
+
 ---
 
 ## 🏛️ Directory-Specific Agent Responsibilities
