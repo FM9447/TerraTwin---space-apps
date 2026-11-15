@@ -30,7 +30,7 @@ export default function Hero() {
 
   return (
     <section className="hero" id="top">
-      <div className="hero__bgword" aria-hidden="true"><span>TWIN WORLDS • TWIN WORLDS • TWIN WORLDS</span></div>
+      <div className="hero__bgword" aria-hidden="true"><span>TERRATWIN • TERRATWIN • TERRATWIN</span></div>
       <div className="hero__beams" aria-hidden="true"><span /><span /><span /></div>
 
       <div className="hero__copy">

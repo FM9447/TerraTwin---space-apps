@@ -14,9 +14,9 @@ export default function Nav() {
 
   return (
     <header className={`nav${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`} id="nav">
-      <a className="nav__brand" href="#top" aria-label="Twin Worlds, back to top">
+      <a className="nav__brand" href="#top" aria-label="TerraTwin, back to top">
         <span className="nav__mark" aria-hidden="true"><span className="nav__orbit" /></span>
-        <span className="nav__name">TWIN&nbsp;WORLDS</span>
+        <span className="nav__name">TERRATWIN</span>
         <span className="nav__live"><i />LIVE&nbsp;ORBIT</span>
       </a>
 
