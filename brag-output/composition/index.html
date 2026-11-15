@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>TerraTwin — Launch & Demo Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #030509;
+        --panel: #0a0e16;
+        --panel-2: #101623;
+        --line: rgba(214, 226, 240, 0.12);
+        --line-bright: rgba(214, 226, 240, 0.28);
+        --sun: #d9a45b;
+        --earth: #6aa8ff;
+        --mars: #c96b4a;
+        --moon: #e8edf5;
+        --text: #ffffff;
+        --muted: #a4b3c6;
+        --faint: #5a6678;
+        --font-display: 'Inter Tight', sans-serif;
+        --font-mono: 'IBM Plex Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--void);
+        color: var(--text);
+        font-family: var(--font-display);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        background: radial-gradient(circle at 50% 50%, #080d1a 0%, #030509 85%);
+        overflow: hidden;
+      }
+
+      /* Grid & scanlines background */
+      .grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(to right, rgba(214, 226, 240, 0.04) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(214, 226, 240, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      .vignette {
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 160px rgba(0, 0, 0, 0.9);
+        pointer-events: none;
+      }
+
+      /* Global Header HUD */
+      .hud-header {
+        position: absolute;
+        top: 40px;
+        left: 60px;
+        right: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 50;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 20px;
+      }
+
+      .hud-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .hud-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--sun);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--sun);
+      }
+
+      .hud-telemetry {
+        display: flex;
+        gap: 28px;
+        color: var(--muted);
+      }
+
+      .hud-telemetry span b {
+        color: var(--sun);
+        font-weight: 500;
+      }
+
+      /* Scenes Container */
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 120px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* SCENE 1: THE HOOK */
+      .s1-kicker {
+        font-family: var(--font-mono);
+        font-size: 16px;
+        letter-spacing: 0.25em;
+        color: var(--sun);
+        margin-bottom: 24px;
+        padding: 6px 16px;
+        background: rgba(217, 164, 91, 0.1);
+        border: 1px solid rgba(217, 164, 91, 0.3);
+        border-radius: 999px;
+      }
+
+      .s1-title {
+        font-size: 78px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        text-align: center;
+        max-width: 1400px;
+      }
+
+      .s1-sub {
+        font-size: 32px;
+        font-weight: 300;
+        color: var(--muted);
+        margin-top: 28px;
+        text-align: center;
+      }
+
+      /* SCENE 2: THE REVEAL & PLANETS */
+      .s2-planets {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 120px;
+      }
+
+      .planet-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .planet-orb {
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        position: relative;
+        filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.2));
+      }
+
+      .planet-orb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .planet-orb.earth { filter: drop-shadow(0 0 40px rgba(106, 168, 255, 0.4)); }
+      .planet-orb.mars { filter: drop-shadow(0 0 40px rgba(201, 107, 74, 0.4)); }
+      .planet-orb.moon { filter: drop-shadow(0 0 40px rgba(232, 237, 245, 0.3)); }
+
+      .planet-name {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+      }
+
+      .s2-overlay-text {
+        position: absolute;
+        bottom: 120px;
+        text-align: center;
+      }
+
+      .s2-headline {
+        font-size: 54px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .s2-pills {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+      }
+
+      .s2-pill {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        padding: 6px 14px;
+        border-radius: 4px;
+        background: rgba(214, 226, 240, 0.06);
+        border: 1px solid var(--line);
+        color: var(--sun);
+      }
+
+      /* SCENE 3: PARAMETRIC DISCOVERY */
+      .demo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        width: 100%;
+        max-width: 1600px;
+        align-items: center;
+      }
+
+      .panel-box {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 36px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      }
+
+      .panel-title {
+        font-family: var(--font-mono);
+        font-size: 15px;
+        letter-spacing: 0.15em;
+        color: var(--sun);
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .slider-row {
+        margin-bottom: 18px;
+      }
+
+      .slider-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: var(--text);
+      }
+
+      .slider-bar-track {
+        height: 6px;
+        background: rgba(214, 226, 240, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .slider-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--earth), var(--sun));
+        border-radius: 3px;
+        width: 0%;
+      }
+
+      .candidate-card {
+        background: var(--panel-2);
+        border: 1px solid var(--sun);
+        border-radius: 12px;
+        padding: 32px;
+      }
+
+      .candidate-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+
+      .candidate-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .candidate-loc {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .similarity-badge {
+        padding: 6px 14px;
+        border-radius: 6px;
+        background: rgba(217, 164, 91, 0.2);
+        border: 1px solid var(--sun);
+        font-family: var(--font-mono);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--sun);
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 14px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        margin: 18px 0;
+        font-family: var(--font-mono);
+        font-size: 13px;
+      }
+
+      .limitations-box {
+        padding: 12px 16px;
+        background: rgba(201, 107, 74, 0.1);
+        border-left: 3px solid var(--mars);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: #e8b07e;
+      }
+
+      /* SCENE 4: PHOTO TWIN MATCHER */
+      .photo-twin-grid {
+        display: grid;
+        grid-template-columns: 1fr 80px 1fr;
+        gap: 30px;
+        align-items: center;
+        width: 100%;
+        max-width: 1600px;
+      }
+
+      .photo-frame {
+        position: relative;
+        width: 100%;
+        height: 480px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--line-bright);
+        background: #000;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .scanline-reticle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--sun);
+        box-shadow: 0 0 15px var(--sun);
+        opacity: 0.9;
+      }
+
+      .photo-badge {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        padding: 4px 10px;
+        background: rgba(3, 5, 9, 0.85);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: var(--text);
+      }
+
+      .twin-arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--sun);
+        font-size: 28px;
+        font-family: var(--font-mono);
+      }
+
+      /* SCENE 5: 100-LEVEL GAME */
+      .game-box {
+        width: 900px;
+        background: var(--panel);
+        border: 1px solid var(--line-bright);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      }
+
+      .game-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 24px;
+        background: var(--panel-2);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 13px;
+      }
+
+      .game-img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+      }
+
+      .game-actions {
+        display: flex;
+        gap: 16px;
+        padding: 24px;
+        background: var(--panel);
+      }
+
+      .game-btn {
+        flex: 1;
+        padding: 16px;
+        border-radius: 8px;
+        background: rgba(214, 226, 240, 0.05);
+        border: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        text-align: center;
+      }
+
+      .game-btn.selected {
+        background: rgba(106, 168, 255, 0.2);
+        border-color: var(--earth);
+        color: var(--earth);
+        box-shadow: 0 0 20px rgba(106, 168, 255, 0.3);
+      }
+
+      /* SCENE 6: OUTRO */
+      .s6-title {
+        font-size: 96px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ffffff 0%, var(--sun) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .s6-tagline {
+        font-size: 28px;
+        font-weight: 300;
+        color: var(--muted);
+        margin-bottom: 40px;
+      }
+
+      .s6-cta-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 48px;
+        background: rgba(217, 164, 91, 0.08);
+        border: 1px solid var(--sun);
+        border-radius: 12px;
+      }
+
+      .s6-cta-url {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--sun);
+        letter-spacing: 0.05em;
+      }
+
+      .s6-nasa-badge {
+        margin-top: 32px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        color: var(--faint);
+        letter-spacing: 0.15em;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="22"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Soundtracks & UI Cues inside root composition -->
+      <audio id="bg-music" class="clip" src="assets/music.mp3" data-start="0" data-duration="22" data-volume="0.8" data-fade-out="1.5"></audio>
+      <audio id="sfx-switch-0" class="clip" src="assets/sfx/switch.ogg" data-start="0.1" data-duration="0.5" data-volume="0.5"></audio>
+      <audio id="sfx-switch-1" class="clip" src="assets/sfx/switch.ogg" data-start="3.0" data-duration="0.5" data-volume="0.6"></audio>
+      <audio id="sfx-click-1" class="clip" src="assets/sfx/click.ogg" data-start="7.5" data-duration="0.4" data-volume="0.5"></audio>
+      <audio id="sfx-switch-2" class="clip" src="assets/sfx/switch.ogg" data-start="11.8" data-duration="0.5" data-volume="0.6"></audio>
+      <audio id="sfx-blip-1" class="clip" src="assets/sfx/blip.ogg" data-start="13.2" data-duration="0.4" data-volume="0.5"></audio>
+      <audio id="sfx-switch-3" class="clip" src="assets/sfx/switch.ogg" data-start="16.2" data-duration="0.5" data-volume="0.6"></audio>
+      <audio id="sfx-click-2" class="clip" src="assets/sfx/click.ogg" data-start="17.2" data-duration="0.4" data-volume="0.6"></audio>
+      <audio id="sfx-switch-4" class="clip" src="assets/sfx/switch.ogg" data-start="19.2" data-duration="0.5" data-volume="0.7"></audio>
+
+      <div class="grid-bg"></div>
+      <div class="vignette"></div>
+
+      <!-- Persistent Header HUD -->
+      <header class="hud-header" id="hudHeader">
+        <div class="hud-brand">
+          <span class="hud-dot"></span>
+          <span>TERRATWIN // PLANETARY ANALOG WORKSTATION</span>
+        </div>
+        <div class="hud-telemetry">
+          <span>DATA: <b>100% NASA DAAC</b></span>
+          <span>ORBIT: <b>STABLE</b></span>
+          <span>CHALLENGE: <b>NASA SPACE APPS 2026</b></span>
+        </div>
+      </header>
+
+      <!-- SCENE 1: THE HOOK (0s - 3.2s) -->
+      <div class="scene" id="scene1">
+        <div class="s1-kicker">✦ NASA SPACE APPS CHALLENGE 9 ✦</div>
+        <h1 class="s1-title">Before humanity leaves Earth...<br/><span style="color: var(--sun);">we rehearse on Earth.</span></h1>
+        <p class="s1-sub">Earth's extreme deserts and volcanic basins mirror Mars and the Moon.</p>
+      </div>
+
+      <!-- SCENE 2: THE REVEAL & PLANETS (3.0s - 7.2s) -->
+      <div class="scene" id="scene2">
+        <div class="s2-planets">
+          <div class="planet-card" id="planetEarth">
+            <div class="planet-orb earth"><img src="assets/earth-disc.png" alt="Earth" /></div>
+            <div class="planet-name">EARTH · 1.0G</div>
+          </div>
+          <div class="planet-card" id="planetMoon">
+            <div class="planet-orb moon"><img src="assets/moon-disc.png" alt="Moon" /></div>
+            <div class="planet-name">MOON · 0.16G</div>
+          </div>
+          <div class="planet-card" id="planetMars">
+            <div class="planet-orb mars"><img src="assets/mars-disc.png" alt="Mars" /></div>
+            <div class="planet-name">MARS · 0.38G</div>
+          </div>
+        </div>
+        <div class="s2-overlay-text" id="s2Text">
+          <h2 class="s2-headline">TerraTwin: The Planetary Analog Discovery Engine</h2>
+          <div class="s2-pills">
+            <span class="s2-pill">NASADEM 30m</span>
+            <span class="s2-pill">MODIS LST 1km</span>
+            <span class="s2-pill">ASTER GED 100m</span>
+            <span class="s2-pill">GPM IMERG 0.1°</span>
+            <span class="s2-pill">SEDAC GPWv4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 3: DEMO 1 — PARAMETRIC DISCOVERY (7.0s - 12.0s) -->
+      <div class="scene" id="scene3">
+        <div class="demo-grid">
+          <!-- Left: Parametric Sliders -->
+          <div class="panel-box" id="sliderPanel">
+            <div class="panel-title">
+              <span>01 // PARAMETRIC INVERSE DISCOVERY</span>
+              <span>PRD SEC. 8</span>
+            </div>
+            <div class="slider-row">
+              <div class="slider-label"><span>Hyper-Aridity (GPM IMERG)</span><span style="color: var(--sun);">100%</span></div>
+              <div class="slider-bar-track"><div class="slider-bar-fill" id="fillAridity" style="width: 100%;"></div></div>
+            </div>
+            <div class="slider-row">
+              <div class="slider-label"><span>Thermal Extremes ΔT (MODIS LST)</span><span style="color: var(--sun);">98%</span></div>
+              <div class="slider-bar-track"><div class="slider-bar-fill" id="fillThermal" style="width: 98%;"></div></div>
+            </div>
+            <div class="slider-row">
+              <div class="slider-label"><span>Basalt Volcanism (ASTER GED)</span><span style="color: var(--sun);">94%</span></div>
+              <div class="slider-bar-track"><div class="slider-bar-fill" id="fillVolcanic" style="width: 94%;"></div></div>
+            </div>
+            <div class="slider-row">
+              <div class="slider-label"><span>Slope Steepness (NASADEM)</span><span style="color: var(--sun);">78%</span></div>
+              <div class="slider-bar-track"><div class="slider-bar-fill" id="fillSlope" style="width: 78%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Right: Ranked Candidate Result -->
+          <div class="candidate-card" id="candidateCard">
+            <div class="candidate-top">
+              <div>
+                <h3 class="candidate-title">Lonar Crater Impact Basin</h3>
+                <p class="candidate-loc">Maharashtra, India · 470m Elevation [19.97°N, 76.51°E]</p>
+              </div>
+              <div class="similarity-badge">89% SIMILARITY</div>
+            </div>
+            <div class="metrics-grid">
+              <div><span style="color: var(--faint);">Coverage:</span> 100%</div>
+              <div><span style="color: var(--faint);">Confidence:</span> 95%</div>
+              <div><span style="color: var(--faint);">Analog to:</span> Moon/Mars</div>
+            </div>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 14px;">
+              Pristine hypervelocity impact basin in flood basalt Deccan Traps with shock-metamorphosed maskelynite.
+            </p>
+            <div class="limitations-box">
+              <b>WHERE ANALOGY BREAKS DOWN:</b> Earth atmosphere 101 kPa vs vacuum/thin CO2; Earth gravity 1.0g.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: DEMO 2 — VISUAL PHOTO TWIN MATCHER (11.8s - 16.5s) -->
+      <div class="scene" id="scene4">
+        <div style="font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; color: var(--sun); margin-bottom: 24px;">
+          02 // VISUAL PHOTO TWIN MATCHER · PDS HEURISTIC
+        </div>
+        <div class="photo-twin-grid">
+          <!-- Left: User Uploaded Photo -->
+          <div class="photo-frame" id="photoInputFrame">
+            <span class="photo-badge">INPUT PHOTO // ATACAMA CANYON</span>
+            <img src="assets/atacama.jpg" alt="Atacama input" />
+            <div class="scanline-reticle" id="scanline"></div>
+          </div>
+
+          <!-- Center: Morphological Link -->
+          <div class="twin-arrow">
+            <span>⇄</span>
+            <span style="font-size: 12px; margin-top: 6px;">MATCH</span>
+          </div>
+
+          <!-- Right: Planetary Twin Found -->
+          <div class="photo-frame" id="photoTwinFrame">
+            <span class="photo-badge" style="color: var(--mars);">TWIN: VALLES MARINERIS, MARS (94% MATCH)</span>
+            <img src="assets/gale.jpg" alt="Mars Twin" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 5: DEMO 3 — 100-LEVEL CAMPAIGN GAME (16.2s - 19.5s) -->
+      <div class="scene" id="scene5">
+        <div style="font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.2em; color: var(--earth); margin-bottom: 20px;">
+          03 // 100-LEVEL CAMPAIGN GAME · DO YOU TRUST YOUR EYES?
+        </div>
+        <div class="game-box" id="gameBox">
+          <div class="game-header">
+            <span>LEVEL 14 // ARCTIC CRATER FLATS</span>
+            <span style="color: var(--sun);">STREAK: ×1.6 (MULTIPLIER ACTIVE)</span>
+          </div>
+          <img class="game-img" src="assets/devon.jpg" alt="Level terrain" />
+          <div class="game-actions">
+            <div class="game-btn selected" id="btnEarth">EARTH (DEVON ISLAND) ✓</div>
+            <div class="game-btn" id="btnMars">MARS (GALE CRATER)</div>
+            <div class="game-btn" id="btnMoon">MOON (MARE IMBRIUM)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 6: OUTRO & CALL TO ACTION (19.2s - 22.0s) -->
+      <div class="scene" id="scene6">
+        <h1 class="s6-title">TERRATWIN</h1>
+        <p class="s6-tagline">Other worlds are closer than you think.</p>
+        <div class="s6-cta-box" id="ctaBox">
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.1em;">EXPLORE THE WORKSTATION LIVE</span>
+          <span class="s6-cta-url">frontend-nine-livid-46.vercel.app</span>
+        </div>
+        <div class="s6-nasa-badge">
+          NASA INTERNATIONAL SPACE APPS CHALLENGE 2026 · CHALLENGE 9
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Persistent HUD Fade In
+      tl.fromTo("#hudHeader", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+
+      // --- SCENE 1: THE HOOK (0.0s - 3.2s) ---
+      tl.fromTo("#scene1", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 0.2)
+        .to("#scene1", { opacity: 0, scale: 1.05, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, 2.8);
+
+      // --- SCENE 2: PLANETARY REVEAL (3.0s - 7.2s) ---
+      tl.fromTo("#scene2", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.1)
+        .fromTo("#planetEarth", { opacity: 0, x: -80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.2)
+        .fromTo("#planetMoon", { opacity: 0, y: 50, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.4)
+        .fromTo("#planetMars", { opacity: 0, x: 80, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 3.6)
+        .fromTo("#s2Text", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.9)
+        .to("#scene2", { opacity: 0, scale: 0.96, duration: 0.4, ease: "power2.in" }, 6.8);
+
+      // --- SCENE 3: DEMO 1 - PARAMETRIC DISCOVERY (7.0s - 12.0s) ---
+      tl.fromTo("#scene3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 7.0)
+        .fromTo("#sliderPanel", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.2)
+        .fromTo("#candidateCard", { opacity: 0, x: 50 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 7.5)
+        .to("#scene3", { opacity: 0, filter: "blur(6px)", duration: 0.4, ease: "power2.in" }, 11.6);
+
+      // --- SCENE 4: DEMO 2 - PHOTO TWIN MATCHER (11.8s - 16.5s) ---
+      tl.fromTo("#scene4", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 11.8)
+        .fromTo("#photoInputFrame", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 12.0)
+        .fromTo("#scanline", { y: 0 }, { y: 476, duration: 1.8, ease: "power1.inOut" }, 12.2)
+        .fromTo("#photoTwinFrame", { opacity: 0, x: 60, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.6, ease: "back.out(1.3)" }, 13.2)
+        .to("#scene4", { opacity: 0, duration: 0.4, ease: "power2.in" }, 16.0);
+
+      // --- SCENE 5: DEMO 3 - 100-LEVEL CAMPAIGN GAME (16.2s - 19.5s) ---
+      tl.fromTo("#scene5", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 16.2)
+        .fromTo("#btnEarth", { scale: 1 }, { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 17.2)
+        .to("#scene5", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 19.0);
+
+      // --- SCENE 6: OUTRO & CTA (19.2s - 22.0s) ---
+      tl.fromTo("#scene6", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 19.2)
+        .fromTo("#ctaBox", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 19.8);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "historyId": "339ae287-9996-49b8-9a67-0346ec14ecba",
+  "currentRevision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2",
+  "pendingChanges": false,
+  "files": {
+    "assets/atacama.jpg": {
+      "hash": "d074665765deb44799a9bfbc16d61ea197c7ecd39944b4f668a1650bbdd762ec",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/d0/d074665765deb44799a9bfbc16d61ea197c7ecd39944b4f668a1650bbdd762ec"
+    },
+    "assets/crater.jpg": {
+      "hash": "9314fa70f3efead5008599780377c2493335ae1bf2dc9c29e65d34b923842f7d",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/93/9314fa70f3efead5008599780377c2493335ae1bf2dc9c29e65d34b923842f7d"
+    },
+    "assets/devon.jpg": {
+      "hash": "9494c396bc1562ba9686d7108b8406f540ea5b95d81a142c89bff6b0f3834a92",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/94/9494c396bc1562ba9686d7108b8406f540ea5b95d81a142c89bff6b0f3834a92"
+    },
+    "assets/earth-disc.png": {
+      "hash": "b9a1228a5957cfade55cd19656ae3b0cab0237a4be71634e3095102921187253",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/b9/b9a1228a5957cfade55cd19656ae3b0cab0237a4be71634e3095102921187253"
+    },
+    "assets/gale.jpg": {
+      "hash": "f72d7ee05e288852ebc330a33cdc180aa3307536f0bcb338fadb7c60d8aebf43",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/f7/f72d7ee05e288852ebc330a33cdc180aa3307536f0bcb338fadb7c60d8aebf43"
+    },
+    "assets/mars-disc.png": {
+      "hash": "0a3e9a9512bf98e8471a413d3351091eeef00b61330719a9974131deec179d67",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/0a/0a3e9a9512bf98e8471a413d3351091eeef00b61330719a9974131deec179d67"
+    },
+    "assets/moon-disc.png": {
+      "hash": "d1c4f3872020a86788b15a7619e1943dba6e0e505eae11d47909bd9a710ed8d0",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/d1/d1c4f3872020a86788b15a7619e1943dba6e0e505eae11d47909bd9a710ed8d0"
+    },
+    "assets/sfx/blip.ogg": {
+      "hash": "d0bc0fcba496d73df1da8c145e5330df75f87ab5a4f33a9b71461b006b5c338e",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/d0/d0bc0fcba496d73df1da8c145e5330df75f87ab5a4f33a9b71461b006b5c338e"
+    },
+    "assets/sfx/click.ogg": {
+      "hash": "59175ac17cd49a68dd736285738441287636112a84a6f7ce0d89921bda5a5360",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/59/59175ac17cd49a68dd736285738441287636112a84a6f7ce0d89921bda5a5360"
+    },
+    "assets/sfx/switch.ogg": {
+      "hash": "8a3fdc5d35c74ae4ce4ec75c1f85c7f5fac1a2a6ac838353b09c48c5d7888fc9",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/8a/8a3fdc5d35c74ae4ce4ec75c1f85c7f5fac1a2a6ac838353b09c48c5d7888fc9"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/a9/a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782"
+    },
+    "meta.json": {
+      "hash": "1c749cde8ede67943657940eef10c048f9dcccdbe314635ced6b2f5682a6615b",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/1c/1c749cde8ede67943657940eef10c048f9dcccdbe314635ced6b2f5682a6615b"
+    },
+    "package.json": {
+      "hash": "73b515ad043a491b0b965122e7e76c1087b0708be5c0e5af12b203ea241c245b",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/73/73b515ad043a491b0b965122e7e76c1087b0708be5c0e5af12b203ea241c245b"
+    },
+    "assets/music.mp3": {
+      "hash": "aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f",
+      "content": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/aa/aa56ab1cdcbef6b05566c6a7c114323078580ccf6a740a9e6c6b6c4b40b4389f"
+    }
+  },
+  "revisions": {
+    "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794764531741,
+      "endedAt": 1794764531742,
+      "files": {
+        "index.html": {
+          "before": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/35/3521a5dc05440568faa32a78494b54aa2afd869bc36479da9d26db403c402a0f",
+          "after": "/home/fm9447/.cache/hyperframes/history/339ae287-9996-49b8-9a67-0346ec14ecba/blobs/a9/a91aec3d2eeb3a948a913783f83ea43f6b92242b3bac49e70355e4dc74f1b782"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2",
+      "id": "22bdffb7-6194-4a51-91b1-4edbe0c0125b"
+    },
+    "revisions": {
+      "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2": [
+        {
+          "id": "22bdffb7-6194-4a51-91b1-4edbe0c0125b",
+          "scope": "project",
+          "report": "/media/fm9447/D/MULearn/TerraTwin - Space Apps/brag-output/composition/.hyperframes/artifacts/checks/22bdffb7-6194-4a51-91b1-4edbe0c0125b.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1794764539298,
+          "contentHash": "150ce546a2eaab52edaf4cef61b2e22f7370e01c608e94bcfe734e8960a05bf9",
+          "revision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2",
+          "inputFingerprint": "b2253620cc065c671053873b2b1c59f0483954cf0ce6bf425e8725c46283c47b",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "70f3a273-2ad2-4937-a8dc-efd3fd6eabe9",
+        "scope": "project",
+        "report": "/media/fm9447/D/MULearn/TerraTwin - Space Apps/brag-output/composition/.hyperframes/artifacts/checks/70f3a273-2ad2-4937-a8dc-efd3fd6eabe9.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": true,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1794764504031,
+        "contentHash": "5b874d4f14ec41781d13b6699b2de690f6f57858eeb78055c40cdb49f375c073",
+        "revision": null,
+        "inputFingerprint": "330ed27edf077f98a678f2180efa88514c2a7e0d1c30cf85c98b4ec6cfdaf55d",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "c8adf2ce-8026-4c0e-9137-1d0127d2f554",
+      "completedAt": 1794764571196,
+      "output": "/media/fm9447/D/MULearn/TerraTwin - Space Apps/brag-output/brag.mp4",
+      "status": "completed",
+      "revision": "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2"
+    },
+    "retainedRevisions": [
+      "adeb3f00-fbeb-4d2d-92bb-d5082c2f68a2"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

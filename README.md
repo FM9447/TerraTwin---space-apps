@@ -5,7 +5,12 @@
 
 > 🚀 **Live Production Application**: [https://frontend-nine-livid-46.vercel.app](https://frontend-nine-livid-46.vercel.app)  
 > 🛰️ **Live Backend REST API**: [https://backend-one-brown-46.vercel.app/api/health](https://backend-one-brown-46.vercel.app/api/health)  
+> 🎬 **Launch & Demo Video**: [brag-output/brag.mp4](brag-output/brag.mp4) (Built with [/brag](https://github.com/latent-spaces/brag))  
 > 🗄️ **Database**: MongoDB Atlas Cluster (Connected with 2dsphere indexing & GridFS)
+
+<p align="center">
+  <img src="brag-output/demo.gif" alt="TerraTwin Launch & Demo Preview" width="100%" style="border-radius: 8px;" />
+</p>
 
 ---
 
