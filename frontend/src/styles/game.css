@@ -1,0 +1,290 @@
+/* ============================================================
+   TWIN WORLDS — campaign console supplement
+   Uses the design tokens from twinworlds.css; nothing here
+   overrides the prototype's sections.
+   ============================================================ */
+
+/* ---- Stars ---- */
+.tw-stars {
+  display: inline-flex;
+  gap: 0.16em;
+  line-height: 1;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.tw-stars span { color: rgba(214, 226, 240, 0.18); transition: color 300ms; }
+.tw-stars span.is-on { color: var(--sun); text-shadow: 0 0 12px rgba(255, 217, 160, 0.5); }
+.tw-stars--big { font-size: clamp(2rem, 1.4rem + 2.4vw, 2.8rem); gap: 0.2em; margin: 0.6rem 0 0.4rem; }
+
+/* ---- Intro ---- */
+.tw-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+.tw-intro__progress {
+  margin-top: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+
+/* ---- Campaign map ---- */
+.game__map { position: relative; z-index: 2; }
+.tw-levels {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 1.6rem;
+}
+.tw-level {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.85rem 0.5rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: rgba(214, 226, 240, 0.03);
+  color: var(--text);
+  transition: transform 180ms var(--ease-spring), border-color 200ms, background 200ms;
+}
+.tw-level:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--sun);
+  background: rgba(255, 217, 160, 0.06);
+}
+.tw-level:disabled { cursor: not-allowed; }
+.tw-level.is-locked { opacity: 0.42; }
+.tw-level.is-current { border-color: rgba(255, 217, 160, 0.6); box-shadow: 0 0 24px rgba(255, 217, 160, 0.12); }
+.tw-level.is-cleared .tw-level__num { color: var(--sun); }
+.tw-level__num {
+  font-family: var(--font-huge);
+  font-size: 1.45rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.tw-level__label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tw-level__mix {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.tw-level__meter { display: flex; gap: 2px; width: 100%; max-width: 64px; margin-top: 0.15rem; }
+.tw-level__meter i {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(214, 226, 240, 0.14);
+}
+.tw-level__meter i.is-on { background: linear-gradient(90deg, var(--earth), var(--sun)); }
+.tw-level__lock { position: absolute; top: 0.35rem; right: 0.4rem; font-size: 0.6rem; filter: grayscale(1); }
+
+.tw-map__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+.tw-reset {
+  margin-top: 1.1rem;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tw-reset:hover { color: var(--danger); }
+
+/* ---- Run ---- */
+.game__panel.is-run { padding: clamp(1.5rem, 3.2vw, 2.25rem); }
+.game__stage img {
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 700ms var(--ease-out);
+}
+.game__stage img.is-revealed { filter: grayscale(0) contrast(1); }
+
+.tw-frame-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(3, 5, 9, 0.4);
+  pointer-events: none;
+}
+.tw-frame-state.is-error { color: var(--danger); }
+.tw-bw-tag {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.6rem;
+  padding: 0.16rem 0.42rem;
+  border-radius: 3px;
+  background: rgba(3, 5, 9, 0.55);
+  backdrop-filter: blur(2px);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: rgba(236, 239, 244, 0.8);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.tw-run__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tw-clues {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.95rem;
+  text-align: left;
+}
+.tw-clue {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0.5rem 0.65rem;
+  background: rgba(214, 226, 240, 0.02);
+  min-height: 62px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.tw-clue.is-open { border-color: rgba(255, 217, 160, 0.4); background: rgba(255, 217, 160, 0.04); }
+.tw-clue__label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+.tw-clue__label em { font-style: normal; color: var(--faint); }
+.tw-clue__text { margin: 0; font-size: 0.77rem; line-height: 1.45; color: var(--muted); }
+.tw-clue__btn {
+  margin-top: auto;
+  padding: 0.35rem 0.2rem;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+}
+.tw-clue__btn:disabled { color: var(--faint); opacity: 0.6; cursor: default; }
+.tw-clue__btn:hover:not(:disabled) { color: var(--sun); }
+
+.tw-reveal {
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+.tw-reveal__verdict {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tw-reveal__verdict b { color: var(--text); }
+.tw-reveal__verdict span { color: var(--sun); }
+.tw-reveal__name {
+  margin: 0.55rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.tw-reveal__name span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-top: 0.2rem;
+}
+.tw-reveal .game__fact { margin: 0.7rem 0 0; text-align: left; }
+.tw-reveal__credit { margin: 0.6rem 0 0; font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.08em; color: var(--faint); }
+
+.tw-run__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+.tw-run__actions .game__next { margin-top: 0; }
+.game__panel.is-run .game__question { margin-bottom: 0.9rem; }
+
+.tw-game-error {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--danger);
+}
+
+/* ---- Result ---- */
+.tw-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .tw-levels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tw-run__meta { flex-wrap: wrap; }
+  .tw-run__meta span:nth-child(2) { display: none; }
+}
+
+@media (max-width: 360px) {
+  .tw-levels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tw-level__mix { display: none; }
+  .tw-clues { grid-template-columns: 1fr; }
+}

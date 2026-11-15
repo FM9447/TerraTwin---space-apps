@@ -9,10 +9,18 @@ dist/
 dist-ssr/
 *.local
 
+# Local dev logs
+frontend/.vite*.log
+backend/.cache/logs/
+
 # Environment variables
 .env
 .env*.local
 !.env.example
+
+# Local game image cache / ingest reports
+backend/.cache/
+backend/image-ingest-report.json
 
 # Editor and OS
 .DS_Store

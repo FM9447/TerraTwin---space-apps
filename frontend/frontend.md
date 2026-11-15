@@ -1,96 +1,88 @@
-# TerraTwin - Node.js & React.js Frontend 🌐🛰️
+# TerraTwin — Twin Worlds Frontend
 
-The **TerraTwin Frontend** is a scientific web dashboard built with **React.js**, **Vite**, **Tailwind CSS**, and **Three.js** to explore planetary analogs, test multi-criteria similarity models, match photos across planetary bodies, and play an educational 100-level reconnaissance game.
+The frontend is the **Twin Worlds** editorial experience plus the **Guess the Planet** campaign. It is a React 18 + Vite 5 app that renders a cinematic single-page design and a ten-level, server-scored game.
 
----
+## Stack
 
-## 🚀 Key Modules & Features
+- React 18, Vite 5
+- Hand-written CSS design system (`src/styles/twinworlds.css`, copied verbatim from the Twin Worlds prototype)
+- Canvas 2D starfield and stardust cursor
+- No Tailwind, no Three.js, no icon library — the design supplies its own reset, type scale and glyphs
 
-### 1. 🔍 Parametric Discovery & Side-by-Side Satellite Imagery (Feature 1)
-- **Interactive Criteria Sliders**: 8 multi-criteria sliders (Terrain Roughness TRI, Elevation Relief, Slope Gradient, Hyper-Aridity, Thermal Extremes $\Delta T$, Rockiness, Basaltic Volcanism, Operational Remoteness).
-- **PRD Mission Profiles**: 4 independently weighted mission profiles (Moon Permanent Base, Moon Robotic Landing, Mars Surface Exploration, Mars Scientific Habitability).
-- **Side-by-Side High-Res Imagery**: Directly displays high-resolution satellite imagery of the candidate Earth analog alongside the candidate Moon or Mars target.
-- **Trio of Independent Scientific Metrics**: Reports Scientific Similarity ($S_{overall}$), Data Coverage %, and Data Confidence %.
-- **PRD Scientific Breakdown**: Documents why the location is analogous, where the analogy breaks down, and field-test feasibility.
+## Page map
 
-### 2. 📷 Visual Photo Matcher (Feature 2)
-- **Photo Upload & Terrain Presets**: Upload custom landscape photos or select from calibrated samples (impact craters, basalt lava flows, aeolian dunes, polar ice).
-- **Feature Extraction Scanner**: Evaluates surface roughness, edge frequency, luminance distribution, crater morphology, and volcanic texture.
-- **Cross-Planetary Matching**: Identifies analogous terrains across Earth, Moon, and Mars with similarity percentage and morphological explanations.
+| Anchor | Section | Component |
+| :--- | :--- | :--- |
+| `#top` | Hero, three orbs, stats, scroll cue | `Hero` |
+| — | Ticker | `Ticker` |
+| `#worlds` | Three worlds + gravity bars | `WorldsSection` |
+| `#fidelity` | Four fidelity pillars + reality check | `FidelitySection` |
+| `#mars` | Six Mars analogues | `AnalogsSection` |
+| `#moon` | Six Moon analogues (horizontal strip) | `AnalogsSection` |
+| `#compare` | Three drag-to-compare sliders | `CompareSection` |
+| `#lookalikes` | Six visual lookalikes | `LookalikesSection` |
+| `#gallery` | 16-frame filterable gallery + lightbox | `GallerySection` |
+| `#game` | Campaign: briefing → map → run → result | `game/GameSection` |
+| `#sources` | Source catalogue | `SourcesSection` |
 
-### 3. 🎮 Cosmic Detective: 100-Level Black & White Educational Game (Feature 3)
-- **100 Progressive Levels**: 100 calibrated levels spanning 4 difficulty tiers:
-  - **Novice** (Levels 1–25)
-  - **Explorer** (Levels 26–50)
-  - **Specialist** (Levels 51–75)
-  - **Commander** (Levels 76–100)
-- **Panchromatic Monochrome Display**: Imagery is presented in pure black & white, removing color cues so users learn to distinguish surfaces based on topography, cratering, and erosion.
-- **NASA Telemetry Clues**: Toggle clues for NASA Instrument, Mineralogy, Slope/Roughness, and Environmental conditions.
-- **True-Color Reveal & Confetti**: Guessing reveals the true-color image, exact coordinates, and detailed NASA scientific rationale.
+Global chrome: `Preloader`, `CursorLayer`, `FxLayers`, `Nav`, `Footer`, `ToTop`.
 
-### 4. 🌐 3D Planetary Orbit Explorer
-- Interactive WebGL 3D planet renderer (Earth, Moon, Mars) with atmospheric scattering and coordinate pinpoints.
+## Effects
 
-### 5. 📚 100% NASA Dataset Catalog & PRD Matrix
-- Complete breakdown of all 10 NASA DAAC and PDS data sources, parameters, resolutions, and direct links.
+`src/twinworlds/hooks/useTwinEffects.js` wires the prototype behaviours once after mount:
 
----
+- scroll progress bar and back-to-top
+- scroll-spy for the nav
+- magnetic buttons and 3D tilt cards
+- reveal-on-scroll observer
+- gravity bar activation
 
-## 📂 Directory Layout
+Canvas work lives in `FxLayers` (warp starfield reacting to scroll velocity, stardust trail). The hero splits its title declaratively and adds depth-weighted orb parallax. All listeners, observers and animation frames are cleaned up on unmount.
+
+## Campaign
+
+The client never sees the answers. `GET /api/game/campaign` returns ten levels of ten sanitized questions; `POST /api/game/guess` returns correctness, points and the reveal.
+
+- **Difficulty ramp**: the backend takes the 100-question bank, sorts each world by tier, and deals ten questions per level so level 1 is easiest and level 10 is hardest.
+- **Mixed worlds**: every level contains Earth, Mars and the Moon; question order is shuffled with no three identical worlds in a row.
+- **Monochrome rule**: `.game__stage img` is `grayscale(1)` until the guess is confirmed, then transitions to true colour.
+- **Clues**: four NASA clue cards unlock sequentially. The first is free; each further clue costs 20 points.
+- **Scoring**: base points by tier (100 / 150 / 200 / 300), a +20% streak bonus per consecutive correct answer (capped at 2×), and clue penalties. All scored by the server.
+- **Stars**: computed from the clean score (base minus clue penalties) against the level maximum — 3★ ≥ 85%, 2★ ≥ 65%, 1★ ≥ 45%, otherwise failed. One star unlocks the next level.
+- **Progress**: `localStorage` key `terratwin.game.progress.v2` stores `highestUnlocked`, `levels[levelNumber] = { stars, bestScore, bestCorrect, cleared, attempts }`, and career totals. The briefing offers “Resume level N”.
+
+## Media
+
+Every image comes from the backend:
+
+- `/api/assets/:key` — editorial imagery (GridFS bucket `siteassets`)
+- `/api/game/image/:n` — campaign frames (GridFS bucket `gameimages`)
+
+`VITE_API_BASE` can point the app at a different API host; the Vite dev server proxies `/api` to `http://localhost:8000` by default.
+
+## Running
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production bundle
+```
+
+The backend must be seeded (`npm run fetch:images`, `npm run fetch:assets`, `npm run seed`).
+
+## Layout
 
 ```text
-frontend/
-├── public/                     # Static assets
-├── src/
-│   ├── components/
-│   │   ├── HeaderNav/          # Navigation bar and mission profile switcher
-│   │   ├── ParametricDiscovery/# Sliders, discovery calculations, side-by-side imagery
-│   │   ├── PhotoMatcher/       # Photo upload, visual feature extractor, matches
-│   │   ├── CosmicGame/         # 100-level B&W educational game with reveal animation
-│   │   ├── PlanetaryExplorer/  # Three.js 3D WebGL interactive globe
-│   │   └── NasaCatalog/        # 100% NASA dataset catalog & PRD matrix
-│   ├── data/
-│   │   ├── nasaDataCatalog.js  # 100% NASA datasets, targets, and analog sites
-│   │   ├── similarityEngine.js # PRD Section 8 hybrid similarity model
-│   │   ├── imageSimilarityEngine.js # Visual photo matcher engine
-│   │   └── gameLevelsData.js   # 100 educational game levels
-│   ├── App.jsx                 # Main application component
-│   ├── main.jsx                # Application entrypoint
-│   └── index.css               # Tailwind CSS rules & styling
-├── index.html                  # HTML5 template
-├── vite.config.js              # Vite configuration with backend API proxy
-├── tailwind.config.js          # Tailwind styling theme
-├── package.json                # Dependencies (React 18, Vite 5, Tailwind, Three.js, Lucide)
-└── frontend.md                 # Frontend documentation
-```
-
----
-
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) v18+ (tested on Node.js v22)
-- `npm`
-
-### Installation & Run
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Visit `http://localhost:3000` in your browser.
-
-### Production Build
-
-```bash
-npm run build
-npm run preview
+src/
+├── twinworlds/
+│   ├── TwinWorldsPage.jsx     # section assembly
+│   ├── content.jsx            # copy + image keys
+│   ├── components/            # one component per section
+│   ├── hooks/useTwinEffects.js
+│   └── game/                  # GameSection, API, progress, stars
+├── styles/
+│   ├── twinworlds.css         # verbatim design stylesheet
+│   └── game.css               # campaign console additions
+├── App.jsx
+└── main.jsx
 ```

@@ -1,38 +1,45 @@
 # 🌐 AGENTS.md — Frontend Directives
 
 > **Scope**: `frontend/` directory  
-> **Primary Stack**: React 18, Vite 5, Tailwind CSS, Lucide React, Three.js (WebGL), Canvas-Confetti  
-> **Theme Guidelines**: Deep Space Dark Theme (`#04070D` canvas, `#070A10` cards, cyan/amber/emerald accents)
+> **Primary Stack**: React 18, Vite 5, the Twin Worlds CSS design system, Canvas 2D FX  
+> **Theme Guidelines**: Deep space (`#030509` void, navy panels, brass `#d9a45b` signal accents, Earth/Mars/Moon hues)
 
 ---
 
-## 🏛️ Component Architecture Rules
+## 🏛️ Architecture Rules
 
-1. **State Isolation**:
-   - Keep views modular inside `src/components/`:
-     - `ParametricDiscovery/`: Criteria sliders, PRD mission profiles, side-by-side satellite imagery.
-     - `PhotoMatcher/`: Visual photo upload, 5D Euclidean feature analyzer, cross-planetary image matching.
-     - `CosmicGame/`: 100-level panchromatic reconnaissance game with telemetry clues and reveal animations.
-     - `PlanetaryExplorer/`: Three.js 3D WebGL orbit viewer for Earth, Moon, and Mars.
-     - `NasaCatalog/`: 100% NASA dataset catalog & PRD compliance matrix.
+1. **Page Structure**:
+   - `src/twinworlds/TwinWorldsPage.jsx` assembles the page in the original design order.
+   - `src/twinworlds/components/` holds one component per section: `Hero`, `Nav`, `WorldsSection`, `FidelitySection`, `AnalogsSection`, `CompareSection`, `LookalikesSection`, `GallerySection`, `SourcesSection`, plus the preloader/FX layers.
+   - `src/twinworlds/content.jsx` holds all copy and image keys. Keep markup free of hard-coded prose.
+   - `src/twinworlds/hooks/useTwinEffects.js` owns the global behaviours (scroll progress, scroll-spy, magnetic buttons, tilt, reveal, gravity bars). Component-local effects own canvases and interactions.
 
-2. **Cosmic Detective Game Invariants (Feature 3)**:
-   - **Monochrome Display**: Imagery MUST remain strictly in Black & White (`grayscale contrast-125`) before the player guesses. Color reveals occur only AFTER a guess is submitted.
-   - **100 Levels Guarantee**: All 100 levels across the 4 difficulty tiers (*Novice 1-25*, *Explorer 26-50*, *Specialist 51-75*, *Commander 76-100*) must remain accessible.
+2. **Design Parity**:
+   - `/` is the **Twin Worlds** landing page. It must stay visually identical to `TerraTwin_UI/twin-worlds-main`: section order, class names, typography and spacing.
+   - `src/styles/twinworlds.css` is a verbatim copy of the design stylesheet. Do not edit it; put campaign-specific additions in `src/styles/game.css`.
+   - Tailwind is intentionally **not** installed: its preflight would shift the design.
 
-3. **Three.js WebGL Resource Management**:
-   - Always dispose geometries, materials, textures, and cancel `requestAnimationFrame` loops in the `useEffect` cleanup return function to prevent GPU memory leaks.
+3. **Game Invariants**:
+   - **Ten levels × ten questions**: the backend builds the campaign; the client never groups answers itself.
+   - **Monochrome before the guess**: `.game__stage img` must stay `grayscale(1)` until the server confirms a guess.
+   - **Server-authoritative scoring**: never compute correctness or points on the client.
+   - **Star gating**: 3★ / 2★ / 1★ / failed; at least one star unlocks the next level.
+   - **Progress**: `localStorage` key `terratwin.game.progress.v2` stores `highestUnlocked`, per-level stars/best score and career totals.
 
-4. **Responsive & Accessible Design**:
-   - Design for standard desktop displays while maintaining flex-wrap and drawer collapse behavior on mobile/tablets.
+4. **Media**:
+   - All imagery is streamed from the backend (`/api/assets/:key`, `/api/game/image/:n`) and lives in MongoDB GridFS. Never add hotlinked images or `public/` photos.
+
+5. **Accessibility & Cleanup**:
+   - Keep the design's `aria-*` attributes. Comparison sliders support arrow keys, Home and End.
+   - Every effect that adds listeners, observers, canvases or animation frames must clean up on unmount.
 
 ---
 
 ## 🧪 Verification Protocol
 
-Before finishing any frontend task, the agent MUST run:
+Before finishing any frontend task, run:
 ```bash
 cd frontend
 npm run build
 ```
-Verify that Vite builds cleanly into `dist/` with zero module errors.
+Verify that Vite builds cleanly into `dist/` with zero module errors, and load the page in a browser to confirm the loader completes and the game reaches its level map.

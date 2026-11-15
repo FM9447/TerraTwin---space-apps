@@ -20,28 +20,26 @@ Altered in strict accordance with the product requirements in `planetary_analog_
 
 ## ✨ Core Features
 
-### 1. 🔍 Parametric Discovery & Side-by-Side Satellite Imagery
-- **Multi-Criteria Input Sliders**: Users can discover analogs according to custom input sliders (Terrain Roughness TRI, Elevation Relief, Slope Gradient, Hyper-Aridity, Thermal Extremes $\Delta T$, Rockiness, Basaltic Volcanism, Operational Remoteness).
-- **PRD Mission Profiles**: 4 independently weighted mission profiles (*Moon Permanent Base Preparation*, *Moon Robotic Operations*, *Mars Surface Exploration*, *Mars Scientific Habitability*).
-- **Side-by-Side High-Resolution Imagery**: Displays high-resolution satellite photography of the matched Earth analog side-by-side with candidate Moon (Artemis, Shackleton) or Mars (Jezero, Gale, Olympus Mons) target imagery.
+### 1. 🌍 Twin Worlds Editorial Experience
+- **A cinematic single-page journey** through Earth's closest Mars and Moon analogues: three worlds, the fidelity index, six Mars sites, six Moon sites, three drag-to-compare sliders, the lookalikes and a filterable 16-frame gallery.
+- **Ported one-to-one from the Twin Worlds design**: preloader, warp starfield, custom cursor, 3D tilt cards, magnetic buttons, scroll-spy, counters, comparison sliders and reveal animations.
+- **Database-backed imagery**: every editorial photo is stored in MongoDB (GridFS bucket `siteassets`) and streamed through `/api/assets/:key`. The browser never contacts an external image host.
 
-### 2. 📷 Visual Photo Analog Matcher
-- **Find Similar Images Using a Photograph**: Upload any surface photograph or pick from calibrated terrain samples (basalt flows, impact craters, aeolian dunes, polar ice).
-- **Morphological Feature Scanner**: Extracts surface roughness, luminance distribution, edge density, and geological textures.
-- **Cross-Planetary Results**: Identifies visually and morphologically matching surfaces across **Earth**, **Moon**, and **Mars** with match percentages and scientific descriptions.
+### 2. 🎮 Guess the Planet: 10-Level Campaign
+- **100 real sites, regrouped as 10 levels of 10 questions** — 48 Earth analogs, 28 lunar features and 24 martian features. Every site is used exactly once.
+- **Progressive difficulty**: level 1 draws the easiest frames, level 10 the hardest, and every level mixes Earth, Mars and the Moon.
+- **Panchromatic Monochrome (B&W) Display**: photos are black and white until the guess, removing atmospheric colour cues; true colour is revealed only after answering.
+- **Authoritative server verification**: the client never receives the answer. The campaign is a sanitized payload and `POST /api/game/guess` scores every guess on the server.
+- **NASA telemetry clues**: instrument, mineralogy, terrain and environment. The first clue is free; each extra clue costs 20 points.
+- **Scoring & streaks**: base points scale by tier (100 / 150 / 200 / 300); consecutive correct answers add a +20% streak bonus, capped at 2×; a wrong answer scores 0 and resets the streak.
+- **Star gating**: each level awards 3★ / 2★ / 1★ or fails. One star unlocks the next level; failed runs can be replayed.
+- **Local progression**: cleared levels, stars, best scores and career totals are cached in `localStorage` (`terratwin.game.progress.v2`), so returning players resume at their highest unlocked level.
 
-### 3. 🎮 Cosmic Detective: 100-Level Black & White Educational Game
-- **100 Progressive Scientific Levels**: Spanning 4 difficulty tiers:
-  - **Novice** (Levels 1–25)
-  - **Explorer** (Levels 26–50)
-  - **Specialist** (Levels 51–75)
-  - **Commander** (Levels 76–100)
-- **Panchromatic Monochrome (B&W) Display**: Photos are shown in black and white to eliminate atmospheric color cues, teaching users to identify planetary terrain by cratering, slope, talus, and texture like a planetary geologist.
-- **NASA Telemetry Clues**: Access sensor clues (NASA instrument, mineralogy, slope, and temperature).
-- **True-Color Reveal Animation**: Guessing triggers celebratory confetti and reveals the true-color photograph with NASA scientific rationale.
+### 3. 🔬 Scientific Discovery API
+- The NASA multi-criteria similarity engine (PRD Section 8) and the visual photo matcher remain available as REST endpoints (`/api/analog/...`, `/api/datasets`, `/api/targets`) and are covered by the test suite.
 
-### 4. 🌐 3D Interactive Orbit Explorer
-- WebGL 3D planetary simulation (Earth, Moon, Mars) rendered with Three.js.
+### 4. 🗄️ MongoDB-First Media
+- Game photography lives in the `gameimages` GridFS bucket and editorial imagery in `siteassets`. Moving from the local Docker database to the production Atlas cluster only requires changing `MONGODB_URI`.
 
 ---
 
@@ -71,18 +69,35 @@ TerraTwin/
 │   │   ├── nasaDataCatalog.js        # 100% NASA datasets, Moon/Mars targets, Earth analogs
 │   │   ├── similarityEngine.js       # PRD Section 8 hybrid similarity calculation
 │   │   ├── imageSimilarityEngine.js  # Feature 2 visual photo matcher engine
-│   │   └── gameLevelsData.js         # 100 educational game levels
+│   │   ├── gameLogic.js              # Public payload, reveal payload and scoring rules
+│   │   ├── gameCampaign.js           # 10-level campaign builder (ramp + mixed worlds)
+│   │   ├── gameLevelsData.js         # Re-export of the canonical 100-level catalog
+│   │   ├── data/
+│   │   │   ├── gameCatalog.js        # Canonical 100-level export + validation
+│   │   │   ├── siteAssets.js         # Editorial image manifest (Twin Worlds page)
+│   │   │   └── levels/               # novice.js · explorer.js · specialist.js · commander.js
+│   │   ├── controllers/gameController.js  # Campaign, sanitized levels, scoring, GridFS
+│   │   ├── controllers/assetController.js # /api/assets/:key streaming
+│   │   ├── models/GameLevel.js       # Mongoose level schema with GridFS image_id
+│   │   └── db/seed.js                # GridFS upload + seeding (games + site assets)
+│   ├── scripts/fetchGameImages.js    # One-time Wikimedia Commons ingest into .cache/
+│   ├── scripts/fetchSiteAssets.js    # Editorial imagery ingest for the landing page
+│   ├── docker-compose.yml            # MongoDB 7 with a named volume
 │   ├── server.js                     # Node.js / Express REST API
 │   ├── package.json                  # Backend dependencies
 │   └── backend.md                    # Detailed backend documentation
 ├── frontend/
 │   ├── src/
-│   │   ├── components/               # HeaderNav, ParametricDiscovery, PhotoMatcher, CosmicGame, etc.
-│   │   ├── data/                     # Data modules & calculation engines
+│   │   ├── twinworlds/               # Twin Worlds page: sections, hooks, content
+│   │   │   ├── components/           # Hero, sections, gallery, nav, FX layers
+│   │   │   ├── game/                 # Campaign map, run, results, progress
+│   │   │   └── content.jsx           # Copy + image keys for every section
+│   │   ├── styles/
+│   │   │   ├── twinworlds.css        # Verbatim Twin Worlds design system
+│   │   │   └── game.css              # Campaign console supplement
 │   │   ├── App.jsx                   # Main React application
-│   │   ├── main.jsx                  # React DOM entrypoint
-│   │   └── index.css                 # Tailwind CSS styling
-│   ├── package.json                  # React 18, Vite 5, Three.js, Lucide, Tailwind
+│   │   └── main.jsx                  # React DOM entrypoint
+│   ├── package.json                  # React 18 + Vite 5
 │   └── frontend.md                   # Detailed frontend documentation
 ├── model/
 │   └── model.md                      # Reserved (left blank per specifications)
@@ -93,21 +108,47 @@ TerraTwin/
 
 ## 🛠️ Quickstart
 
-### 1. Run the Backend (Node.js)
+> Prerequisites: Node.js 18+, Docker Desktop (for the local MongoDB 7 instance).
+
+### 1. Start MongoDB and seed the database
 ```bash
 cd backend
 npm install
-npm run dev
-# Running on http://localhost:8000
+npm run db:up          # starts MongoDB 7 in Docker (named volume: terratwin-mongo-data)
+npm run fetch:images    # first run only: downloads the 100 game photos into backend/.cache
+npm run fetch:assets    # first run only: downloads the editorial imagery for the landing page
+npm run seed            # uploads both image sets to GridFS and seeds the campaigns
 ```
 
-### 2. Run the Frontend (React.js + Vite)
+### 2. Run the Backend (Node.js)
+```bash
+cd backend
+npm run dev
+# Running on http://localhost:8000
+# Health check: http://localhost:8000/api/health
+```
+
+### 3. Run the Frontend (React.js + Vite)
 ```bash
 cd frontend
 npm install
 npm run dev
 # Running on http://localhost:3000
 ```
+
+The Vite dev server proxies `/api` to `http://localhost:8000`, so no extra
+configuration is required. To point at a different backend, set `VITE_API_BASE`.
+
+### Game API
+| Method | Endpoint | Purpose |
+| :--- | :--- | :--- |
+| `GET` | `/api/game/campaign` | 10 levels × 10 sanitized questions, ramped and mixed |
+| `GET` | `/api/game/levels` | Sanitized level list (never contains answers) |
+| `GET` | `/api/game/levels/:n` | One sanitized level |
+| `GET` | `/api/game/image/:n` | Streams the level photo from GridFS (`gameimages`) |
+| `POST` | `/api/game/guess` | Authoritative answer check + reveal payload |
+| `GET` | `/api/game/stats` | Level and stored-image counts |
+| `GET` | `/api/assets/:key` | Streams editorial imagery from GridFS (`siteassets`) |
 
 ---
 
